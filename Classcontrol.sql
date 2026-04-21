@@ -215,14 +215,109 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Ficha` (
 
 
 -- -----------------------------------------------------
+-- Table `ClassControl`.`Ambientes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ClassControl`.`Ambientes` (
+  `id_ambientes` INT NOT NULL AUTO_INCREMENT,
+  `descripcion_Ambiente` VARCHAR(45) NOT NULL,
+  `capacidad` INT NOT NULL,
+  `Sede_id_sede` INT NOT NULL,
+  PRIMARY KEY (`id_ambientes`),
+  INDEX `fk_Ambientes_Sede1_idx` (`Sede_id_sede` ) ,
+  UNIQUE INDEX `descripcion_Ambiente_UNIQUE` (`descripcion_Ambiente` ) ,
+  CONSTRAINT `fk_Ambientes_Sede1`
+    FOREIGN KEY (`Sede_id_sede`)
+    REFERENCES `ClassControl`.`Sede` (`id_sede`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ClassControl`.`Trimestre`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ClassControl`.`Trimestre` (
+  `id_trimestre` INT NOT NULL AUTO_INCREMENT,
+  `num_trimestre` INT NOT NULL,
+  `descripcion` VARCHAR(45) NOT NULL,
+  `fecha_inicio` DATE NOT NULL,
+  `fecha_fin` DATE NOT NULL,
+  PRIMARY KEY (`id_trimestre`));
+
+
+-- -----------------------------------------------------
+-- Table `ClassControl`.`Programacion_Instructores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ClassControl`.`Programacion_Instructores` (
+  `id_programacion_Instructores` INT NOT NULL AUTO_INCREMENT,
+  `Observaciones` VARCHAR(45) NOT NULL,
+  `fecha_inicial_Prog` DATE NOT NULL,
+  `fecha_fin_Prog` DATE NOT NULL,
+  `diasSemana` ENUM('LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB') NOT NULL,
+  `hora_inicio` TIME NOT NULL,
+  `hora_fin` TIME NOT NULL,
+  `Ficha_id_ficha` INT NOT NULL,
+  `Usuarios_id_usuarios` INT NOT NULL,
+  `Ambientes_id_ambientes` INT NOT NULL,
+  `Trimestre_id_trimestre` INT NOT NULL,
+  `Estado_id_estado` INT NOT NULL,
+  PRIMARY KEY (`id_programacion_Instructores`),
+  INDEX `fk_Programacion_Instructores_Ficha1_idx` (`Ficha_id_ficha` ) ,
+  INDEX `fk_Programacion_Instructores_Usuarios1_idx` (`Usuarios_id_usuarios` ) ,
+  INDEX `fk_Programacion_Instructores_Ambientes1_idx` (`Ambientes_id_ambientes` ) ,
+  INDEX `fk_Programacion_Instructores_Trimestre1_idx` (`Trimestre_id_trimestre` ) ,
+  INDEX `fk_Programacion_Instructores_Estado1_idx` (`Estado_id_estado` ) ,
+  UNIQUE INDEX `fecha_inicial_Prog_UNIQUE` (`fecha_inicial_Prog` ) ,
+  UNIQUE INDEX `fecha_fin_Prog_UNIQUE` (`fecha_fin_Prog` ) ,
+  UNIQUE INDEX `diasSemana_UNIQUE` (`diasSemana` ) ,
+  UNIQUE INDEX `Ambientes_id_ambientes_UNIQUE` (`Ambientes_id_ambientes` ) ,
+  UNIQUE INDEX `id_programacion_Instructores_UNIQUE` (`id_programacion_Instructores` ) ,
+  UNIQUE INDEX `hora_inicio_UNIQUE` (`hora_inicio` ) ,
+  UNIQUE INDEX `hora_fin_UNIQUE` (`hora_fin` ) ,
+  CONSTRAINT `fk_Programacion_Instructores_Ficha1`
+    FOREIGN KEY (`Ficha_id_ficha`)
+    REFERENCES `ClassControl`.`Ficha` (`id_ficha`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Programacion_Instructores_Usuarios1`
+    FOREIGN KEY (`Usuarios_id_usuarios`)
+    REFERENCES `ClassControl`.`Usuarios` (`id_usuarios`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Programacion_Instructores_Ambientes1`
+    FOREIGN KEY (`Ambientes_id_ambientes`)
+    REFERENCES `ClassControl`.`Ambientes` (`id_ambientes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Programacion_Instructores_Trimestre1`
+    FOREIGN KEY (`Trimestre_id_trimestre`)
+    REFERENCES `ClassControl`.`Trimestre` (`id_trimestre`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Programacion_Instructores_Estado1`
+    FOREIGN KEY (`Estado_id_estado`)
+    REFERENCES `ClassControl`.`Estado` (`id_estado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `ClassControl`.`Competencias`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ClassControl`.`Competencias` (
   `id_competencias` INT NOT NULL AUTO_INCREMENT,
   `codigoCompetencias` INT NOT NULL,
   `descripcionCompetencias` VARCHAR(45) NOT NULL,
+  `Programacion_Instructores_id_programacion_Instructores` INT NOT NULL,
   PRIMARY KEY (`id_competencias`),
-  UNIQUE INDEX `codigoCompetencias_UNIQUE` (`codigoCompetencias` ) )
+  UNIQUE INDEX `codigoCompetencias_UNIQUE` (`codigoCompetencias` ) ,
+  INDEX `fk_Competencias_Programacion_Instructores1_idx` (`Programacion_Instructores_id_programacion_Instructores` ) ,
+  CONSTRAINT `fk_Competencias_Programacion_Instructores1`
+    FOREIGN KEY (`Programacion_Instructores_id_programacion_Instructores`)
+    REFERENCES `ClassControl`.`Programacion_Instructores` (`id_programacion_Instructores`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -261,101 +356,6 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Actividades` (
     REFERENCES `ClassControl`.`Resultado_aprendizaje` (`id_resultado_aprendizaje`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `ClassControl`.`Trimestre`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ClassControl`.`Trimestre` (
-  `id_trimestre` INT NOT NULL AUTO_INCREMENT,
-  `num_trimestre` INT NOT NULL,
-  `descripcion` VARCHAR(45) NOT NULL,
-  `fecha_inicio` DATE NOT NULL,
-  `fecha_fin` DATE NOT NULL,
-  PRIMARY KEY (`id_trimestre`));
-
-
--- -----------------------------------------------------
--- Table `ClassControl`.`Ambientes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ClassControl`.`Ambientes` (
-  `id_ambientes` INT NOT NULL AUTO_INCREMENT,
-  `descripcion_Ambiente` VARCHAR(45) NOT NULL,
-  `capacidad` INT NOT NULL,
-  `Sede_id_sede` INT NOT NULL,
-  PRIMARY KEY (`id_ambientes`),
-  INDEX `fk_Ambientes_Sede1_idx` (`Sede_id_sede` ) ,
-  UNIQUE INDEX `descripcion_Ambiente_UNIQUE` (`descripcion_Ambiente` ) ,
-  CONSTRAINT `fk_Ambientes_Sede1`
-    FOREIGN KEY (`Sede_id_sede`)
-    REFERENCES `ClassControl`.`Sede` (`id_sede`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ClassControl`.`Programacion_Instructores`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ClassControl`.`Programacion_Instructores` (
-  `id_programacion_Instructores` INT NOT NULL AUTO_INCREMENT,
-  `Observaciones` VARCHAR(45) NOT NULL,
-  `fecha_inicial_Prog` DATE NOT NULL,
-  `fecha_fin_Prog` DATE NOT NULL,
-  `diasSemana` ENUM('LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB') NOT NULL,
-  `hora_inicio` TIME NOT NULL,
-  `hora_fin` TIME NOT NULL,
-  `Ficha_id_ficha` INT NOT NULL,
-  `Usuarios_id_usuarios` INT NOT NULL,
-  `Ambientes_id_ambientes` INT NOT NULL,
-  `Actividades_id_actividades` INT NOT NULL,
-  `Trimestre_id_trimestre` INT NOT NULL,
-  `Estado_id_estado` INT NOT NULL,
-  PRIMARY KEY (`id_programacion_Instructores`),
-  INDEX `fk_Programacion_Instructores_Ficha1_idx` (`Ficha_id_ficha` ) ,
-  INDEX `fk_Programacion_Instructores_Usuarios1_idx` (`Usuarios_id_usuarios` ) ,
-  INDEX `fk_Programacion_Instructores_Ambientes1_idx` (`Ambientes_id_ambientes` ) ,
-  INDEX `fk_Programacion_Instructores_Actividades1_idx` (`Actividades_id_actividades` ) ,
-  INDEX `fk_Programacion_Instructores_Trimestre1_idx` (`Trimestre_id_trimestre` ) ,
-  INDEX `fk_Programacion_Instructores_Estado1_idx` (`Estado_id_estado` ) ,
-  UNIQUE INDEX `fecha_inicial_Prog_UNIQUE` (`fecha_inicial_Prog` ) ,
-  UNIQUE INDEX `fecha_fin_Prog_UNIQUE` (`fecha_fin_Prog` ) ,
-  UNIQUE INDEX `diasSemana_UNIQUE` (`diasSemana` ) ,
-  UNIQUE INDEX `Ambientes_id_ambientes_UNIQUE` (`Ambientes_id_ambientes` ) ,
-  UNIQUE INDEX `id_programacion_Instructores_UNIQUE` (`id_programacion_Instructores` ) ,
-  UNIQUE INDEX `hora_inicio_UNIQUE` (`hora_inicio` ) ,
-  UNIQUE INDEX `hora_fin_UNIQUE` (`hora_fin` ) ,
-  CONSTRAINT `fk_Programacion_Instructores_Ficha1`
-    FOREIGN KEY (`Ficha_id_ficha`)
-    REFERENCES `ClassControl`.`Ficha` (`id_ficha`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Programacion_Instructores_Usuarios1`
-    FOREIGN KEY (`Usuarios_id_usuarios`)
-    REFERENCES `ClassControl`.`Usuarios` (`id_usuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Programacion_Instructores_Ambientes1`
-    FOREIGN KEY (`Ambientes_id_ambientes`)
-    REFERENCES `ClassControl`.`Ambientes` (`id_ambientes`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Programacion_Instructores_Actividades1`
-    FOREIGN KEY (`Actividades_id_actividades`)
-    REFERENCES `ClassControl`.`Actividades` (`id_actividades`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Programacion_Instructores_Trimestre1`
-    FOREIGN KEY (`Trimestre_id_trimestre`)
-    REFERENCES `ClassControl`.`Trimestre` (`id_trimestre`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Programacion_Instructores_Estado1`
-    FOREIGN KEY (`Estado_id_estado`)
-    REFERENCES `ClassControl`.`Estado` (`id_estado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
