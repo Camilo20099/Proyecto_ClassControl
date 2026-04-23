@@ -40,7 +40,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `competencias` WRITE;
 /*!40000 ALTER TABLE `competencias` DISABLE KEYS */;
-INSERT INTO `competencias` VALUES (1,1568251,'Conocimientos de base de datos');
 /*!40000 ALTER TABLE `competencias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +49,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `estado` WRITE;
 /*!40000 ALTER TABLE `estado` DISABLE KEYS */;
-INSERT INTO `estado` VALUES (1,'Activo');
 /*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +58,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `etapa` WRITE;
 /*!40000 ALTER TABLE `etapa` DISABLE KEYS */;
-INSERT INTO `etapa` VALUES (1,'Productiva');
 /*!40000 ALTER TABLE `etapa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +67,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `ficha` WRITE;
 /*!40000 ALTER TABLE `ficha` DISABLE KEYS */;
-INSERT INTO `ficha` VALUES (1,'3171084','2026-03-28','2026-09-29',30,1,1,1,1,1,1,1);
 /*!40000 ALTER TABLE `ficha` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +76,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `jornada` WRITE;
 /*!40000 ALTER TABLE `jornada` DISABLE KEYS */;
-INSERT INTO `jornada` VALUES (1,'Tarde');
 /*!40000 ALTER TABLE `jornada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +85,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `modalidad` WRITE;
 /*!40000 ALTER TABLE `modalidad` DISABLE KEYS */;
-INSERT INTO `modalidad` VALUES (1,'Presencial');
 /*!40000 ALTER TABLE `modalidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +94,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `nivel_formacion` WRITE;
 /*!40000 ALTER TABLE `nivel_formacion` DISABLE KEYS */;
-INSERT INTO `nivel_formacion` VALUES (1,'Tecnologo');
 /*!40000 ALTER TABLE `nivel_formacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +112,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `programas` WRITE;
 /*!40000 ALTER TABLE `programas` DISABLE KEYS */;
-INSERT INTO `programas` VALUES (1,16546,'ADSO');
 /*!40000 ALTER TABLE `programas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +130,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administrador');
+INSERT INTO `roles` VALUES (3,'Administrador'),(2,'Aprendiz'),(1,'Instructor');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +140,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `sede` WRITE;
 /*!40000 ALTER TABLE `sede` DISABLE KEYS */;
-INSERT INTO `sede` VALUES (1,'Sede de mecatronica');
 /*!40000 ALTER TABLE `sede` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +149,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tipo_documento` WRITE;
 /*!40000 ALTER TABLE `tipo_documento` DISABLE KEYS */;
-INSERT INTO `tipo_documento` VALUES (1,'Tarjeta de identidad');
+INSERT INTO `tipo_documento` VALUES (1,'C�dula de Ciudadania'),(3,'C�dula de Extranjer�a'),(4,'Pasaporte'),(2,'Tarjeta de Identidad');
 /*!40000 ALTER TABLE `tipo_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +159,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tipo_vinculacion` WRITE;
 /*!40000 ALTER TABLE `tipo_vinculacion` DISABLE KEYS */;
-INSERT INTO `tipo_vinculacion` VALUES (1,'Ninguno');
+INSERT INTO `tipo_vinculacion` VALUES (2,'Contratista'),(4,'Formativa'),(5,'Laboral'),(1,'Planta'),(3,'Temporal');
 /*!40000 ALTER TABLE `tipo_vinculacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +169,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `trimestre` WRITE;
 /*!40000 ALTER TABLE `trimestre` DISABLE KEYS */;
-INSERT INTO `trimestre` VALUES (1,6,'2026-07-15','2026-07-15','2026-10-21');
 /*!40000 ALTER TABLE `trimestre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,6 +178,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'stiven ','hurtado','1007284555','camilohurtado1120956066@gmail.com','3001966387','','stisanch','1007',1,2,1,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-28 15:04:17
+-- Dump completed on 2026-04-23 14:02:50
