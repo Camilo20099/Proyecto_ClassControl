@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Usuarios` (
   `telefono` VARCHAR(45) NOT NULL,
   `direccion` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
+  `nivel_Educativo` VARCHAR(45) NOT NULL,
+  `profesion` VARCHAR(45) NOT NULL,
   `clave` VARCHAR(255) NOT NULL,
   `activo` TINYINT(1) NOT NULL,
   `Roles_id_roles` INT NOT NULL,
