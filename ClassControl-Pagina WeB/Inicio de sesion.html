@@ -3,163 +3,139 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>ClassControl - SENA Login</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#39A900",
-            "background-light": "#f6f8f5",
-            "background-dark": "#16230f",
-          },
-          fontFamily: { "display": ["Inter", "sans-serif"] },
-          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-        },
-      },
-    }
-  </script>
-  <link rel="stylesheet" href="Inicio de sesionCSS.css"/>
+  <title>ClassControl – SENA | Iniciar sesión</title>
+
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- ── Bootstrap 5.3 ── -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+
+  <!-- ── Bootstrap Icons ── -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+
+  <!-- ── Estilos propios ── -->
+  <link rel="stylesheet" href="CSS/Inicio de sesionCSS.css"/>
 </head>
-<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+<body class="cc-login-body">
 
-<!-- Fondo decorativo -->
-<div class="fixed top-0 right-0 -z-10 opacity-20 pointer-events-none">
-  <div class="w-96 h-96 bg-primary/20 rounded-full blur-[100px]"></div>
-</div>
-<div class="fixed bottom-0 left-0 -z-10 opacity-20 pointer-events-none">
-  <div class="w-96 h-96 bg-primary/20 rounded-full blur-[100px]"></div>
-</div>
+  <!-- Decoración de fondo -->
+  <div class="cc-blob cc-blob--top" aria-hidden="true"></div>
+  <div class="cc-blob cc-blob--bottom" aria-hidden="true"></div>
 
-<div class="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-gradient-to-b from-white to-primary/5">
-  <div class="flex flex-col w-full max-w-[440px] p-6">
+  <main class="cc-login-wrapper">
+    <div class="cc-login-card shadow-lg">
 
-    <!-- Logo y título -->
-    <div class="flex flex-col items-center mb-8">
-      <div class="mb-6 flex items-center justify-center">
-        <div class="size-24 text-primary">
-          <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <!-- ── Cabecera / Logo ── -->
+      <div class="cc-login-header text-center">
+        <div class="cc-logo-icon mb-3">
+          <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM34.2 34.2H13.8V13.8H34.2V34.2Z" fill="currentColor"/>
             <path d="M24 16.8V31.2M16.8 24H31.2" stroke="white" stroke-linecap="round" stroke-width="4"/>
           </svg>
         </div>
-      </div>
-      <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-bold tracking-tight text-center">ClassControl</h1>
-      <p class="text-primary font-medium text-sm mt-1">Gestión de Programación de Instructores</p>
-    </div>
-
-    <!-- Tarjeta de login -->
-    <div class="bg-white dark:bg-slate-900 shadow-xl border border-primary/10 rounded-xl p-8">
-      <div class="mb-6">
-        <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-200">Iniciar sesión</h2>
-        <p class="text-slate-500 text-sm mt-1">Ingresa tus credenciales para acceder</p>
+        <h1 class="cc-app-title">ClassControl</h1>
+        <p class="cc-app-subtitle">Gestión de Programación de Instructores</p>
       </div>
 
-      <!-- FORM principal -->
-      <form id="form-login" novalidate class="space-y-5">
+      <!-- ── Cuerpo del formulario ── -->
+      <div class="cc-login-body-inner">
+        <h2 class="cc-section-title">Iniciar sesión</h2>
+        <p class="cc-section-desc">Ingresa tus credenciales para acceder</p>
 
-        <!-- Usuario -->
-        <div class="flex flex-col gap-1">
-          <label class="text-slate-700 dark:text-slate-300 text-sm font-medium" for="login-usuario">
-            Correo electrónico o Usuario
-          </label>
-          <div class="relative">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">person</span>
-            <input
-              id="login-usuario"
-              name="usuario"
-              type="text"
-              autocomplete="username"
-              placeholder="ejemplo@sena.edu.co"
-              class="input-field w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-            />
+        <form id="form-login" novalidate autocomplete="on">
+
+          <!-- Usuario -->
+          <div class="mb-3">
+            <label class="form-label" for="login-usuario">Correo electrónico o Usuario</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input
+                id="login-usuario"
+                name="usuario"
+                type="text"
+                autocomplete="username"
+                placeholder="ejemplo@sena.edu.co"
+                class="form-control"
+                required
+              />
+              <div class="invalid-feedback">Ingresa tu correo o usuario.</div>
+            </div>
           </div>
-          <p class="error-msg hidden text-xs text-red-500">Ingresa tu correo o usuario.</p>
-        </div>
 
-        <!-- Contraseña -->
-        <div class="flex flex-col gap-1">
-          <label class="text-slate-700 dark:text-slate-300 text-sm font-medium" for="login-password">
-            Contraseña
-          </label>
-          <div class="relative">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock</span>
-            <input
-              id="login-password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="••••••••"
-              class="input-field w-full pl-10 pr-12 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-            />
-            <button id="btn-toggle-pass" type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
-              aria-label="Mostrar / ocultar contraseña">
-              <span id="icon-pass" class="material-symbols-outlined text-[20px]">visibility</span>
-            </button>
+          <!-- Contraseña -->
+          <div class="mb-3">
+            <label class="form-label" for="login-password">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input
+                id="login-password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="••••••••"
+                class="form-control"
+                required
+              />
+              <button id="btn-toggle-pass" class="input-group-text cc-toggle-pass" type="button"
+                aria-label="Mostrar / ocultar contraseña">
+                <i id="icon-pass" class="bi bi-eye"></i>
+              </button>
+              <div class="invalid-feedback">Ingresa tu contraseña.</div>
+            </div>
           </div>
-          <p class="error-msg hidden text-xs text-red-500">Ingresa tu contraseña.</p>
-        </div>
 
-        <!-- Recordarme + olvidé contraseña -->
-        <div class="flex items-center justify-between">
-          <label class="flex items-center gap-2 cursor-pointer select-none">
-            <input id="recordarme" name="recordarme" type="checkbox"
-              class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary accent-primary"/>
-            <span class="text-slate-600 dark:text-slate-400 text-sm">Recordarme</span>
-          </label>
-          <a class="text-primary hover:text-primary/80 text-sm font-medium transition-colors"
-            href="Recuperar Contraseña.html">¿Olvidaste tu contraseña?</a>
-        </div>
+          <!-- Recordarme + olvidé -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="recordarme" name="recordarme"/>
+              <label class="form-check-label" for="recordarme">Recordarme</label>
+            </div>
+            <a class="cc-link-forgot" href="Recuperar Contraseña.html">¿Olvidaste tu contraseña?</a>
+          </div>
 
-        <!-- Mensaje de error global -->
-        <div id="login-error" class="hidden bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3 flex items-center gap-2">
-          <span class="material-symbols-outlined text-[18px]">error</span>
-          <span id="login-error-msg">Credenciales incorrectas. Inténtalo de nuevo.</span>
-        </div>
+          <!-- Error global -->
+          <div id="login-error" class="alert alert-danger d-none d-flex align-items-center gap-2 py-2 px-3" role="alert">
+            <i class="bi bi-exclamation-circle-fill flex-shrink-0"></i>
+            <span id="login-error-msg">Credenciales incorrectas. Inténtalo de nuevo.</span>
+          </div>
 
-        <!-- Botón submit -->
-        <button
-          type="submit"
-          id="btn-login"
-          class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 active:scale-[.98]">
-          <span id="btn-login-text">Iniciar sesión</span>
-          <span id="btn-login-icon" class="material-symbols-outlined text-[20px]">login</span>
-          <!-- Spinner (oculto por defecto) -->
-          <svg id="btn-spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-          </svg>
-        </button>
+          <!-- Botón submit -->
+          <button type="submit" id="btn-login" class="btn cc-btn-primary w-100 mt-2">
+            <span id="btn-login-text">Iniciar sesión</span>
+            <i id="btn-login-icon" class="bi bi-box-arrow-in-right ms-1"></i>
+            <span id="btn-spinner" class="spinner-border spinner-border-sm d-none ms-1" role="status" aria-hidden="true"></span>
+          </button>
 
-      </form>
+        </form>
+      </div>
 
-      <!-- Registro -->
-      <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
-        <p class="text-slate-500 text-sm">
+      <!-- ── Registro ── -->
+      <div class="cc-login-footer">
+        <p class="mb-0">
           ¿No tienes una cuenta?
-          <a class="text-primary font-semibold hover:underline decoration-2 underline-offset-4"
-            href="Registrar usuario.html">Registrarse como nuevo usuario</a>
+          <a class="cc-link-register" href="Registrar_Usuario.jsp">Registrarse como nuevo usuario</a>
         </p>
       </div>
-    </div>
 
-    <!-- Footer -->
-    <footer class="mt-8 text-center">
-      <div class="flex justify-center gap-4 mb-4">
-        <img alt="Logo SENA" class="h-8 opacity-60 grayscale hover:grayscale-0 transition-all"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCayioC48f1BBVpKq8aGuTKHgo1rON1ZYM1gZ7ul6pAk4RcBwW1ybE4XNg_ok_KaxIKjmqLL6rjfsuBQAlkvG-juVFBI-jz1n1r9PBtNkGiIC_gnzdCdBeUkeN22gHie8JosTq1Z8lgyGuQ6QJeHo1NyzEPT_QgqqmydAr7p6_ohQSN2jIMEUerrnAaWepjs4bx1RFAYcFRYxyHV9W_RjOj4mzWkLEnKbCGFdklXV0skRREavAgyiANE4L_FrhuxVei8_EkzFMyhLY"/>
-      </div>
-      <p class="text-slate-400 text-xs">© 2024 Servicio Nacional de Aprendizaje SENA.<br/>Todos los derechos reservados.</p>
+    </div><!-- /cc-login-card -->
+
+    <!-- Footer SENA -->
+    <footer class="cc-sena-footer text-center mt-4">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCayioC48f1BBVpKq8aGuTKHgo1rON1ZYM1gZ7ul6pAk4RcBwW1ybE4XNg_ok_KaxIKjmqLL6rjfsuBQAlkvG-juVFBI-jz1n1r9PBtNkGiIC_gnzdCdBeUkeN22gHie8JosTq1Z8lgyGuQ6QJeHo1NyzEPT_QgqqmydAr7p6_ohQSN2jIMEUerrnAaWepjs4bx1RFAYcFRYxyHV9W_RjOj4mzWkLEnKbCGFdklXV0skRREavAgyiANE4L_FrhuxVei8_EkzFMyhLY"
+        alt="Logo SENA"
+        class="cc-sena-logo"
+      />
+      <p class="cc-sena-copy">© 2024 Servicio Nacional de Aprendizaje SENA.<br/>Todos los derechos reservados.</p>
     </footer>
+  </main>
 
-  </div>
-</div>
-
-<script src="Inicio de sesionJS.js"></script>
+  <!-- ── Bootstrap JS ── -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ── Lógica de login ── -->
+  <script src="JS/Inicio de sesionJS.js"></script>
 </body>
 </html>

@@ -1,440 +1,423 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestión de Fichas — ClassControl</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- ── Google Fonts ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <!-- ── Bootstrap 5.3 ── -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
 
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="FichasCSS.css" />
+  <!-- ── Bootstrap Icons ── -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
 
-  <!-- Tailwind config -->
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary":          "#38a800",
-            "background-light": "#f6f8f5",
-            "background-dark":  "#16230f",
-            "sena-dark":        "#00304D",
-          },
-          fontFamily: { display: ["Inter"] },
-          borderRadius: {
-            DEFAULT: "0.25rem", lg: "0.5rem",
-            xl: "0.75rem",      full: "9999px",
-          },
-        },
-      },
-    };
-  </script>
+  <!-- ── DataTables + Bootstrap 5 skin ── -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css"/>
+
+
+  <link rel="stylesheet" href="CSS/Inicio de sesionCSS.css"/>
+  <link rel="stylesheet" href="CSS/Pagina PrincipalCSS.css"/>
+  <link rel="stylesheet" href="CSS/FichasCSS.css"/>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
-<div class="flex min-h-screen">
+<body class="cc-dash-body">
+<div class="cc-app-wrapper">
 
-  <!-- ═══════════════════════════════════════════════
-       SIDEBAR
-  ═══════════════════════════════════════════════ -->
-  <aside class="w-64 bg-sena-dark text-white flex flex-col shrink-0">
-    <div class="p-6 flex flex-col gap-1 flex-1">
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="cc-sidebar" id="cc-sidebar">
 
-      <!-- Brand -->
-      <div class="flex items-center gap-3 mb-8">
-        <div class="bg-white p-1 rounded-lg">
-          <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"
-               alt="Logo SENA" class="h-8 w-auto" />
-        </div>
-        <div>
-          <h1 class="text-xl font-bold leading-none">ClassControl</h1>
-          <p class="text-xs text-primary font-medium">Gestión Educativa</p>
-        </div>
+    <!-- Logo + nombre app -->
+    <div class="cc-sidebar-logo">
+      <div class="cc-sidebar-logo-box">
+        <!-- Tamaño fijo: 32 × 32 px para que nunca desborde -->
+        <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"
+             alt="SENA" width="32" height="32" style="object-fit:contain;"/>
       </div>
-
-      <!-- Nav -->
-      <nav class="flex flex-col gap-1">
-        <a href="Pagina Principal.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">dashboard</span><span>Inicio</span>
-        </a>
-        <a href="Fichas.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg active-nav">
-          <span class="material-symbols-outlined">description</span><span>Fichas</span>
-        </a>
-        <a href="Instructores.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">groups</span><span>Instructores</span>
-        </a>
-        <a href="Programas.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">school</span><span>Programas</span>
-        </a>
-        <a href="Ambientes.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">meeting_room</span><span>Ambientes</span>
-        </a>
-        <a href="Competencias.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">target</span><span>Competencias</span>
-        </a>
-        <a href="Actividades.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">assignment_turned_in</span><span>Actividades</span>
-        </a>
-        <a href="Programacion instructores.html"
-           class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined">calendar_month</span><span>Programación</span>
-        </a>
-
-        <div class="border-t border-white/10 mt-2 pt-2 flex flex-col gap-1">
-          <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined">analytics</span><span>Reportes</span>
-          </a>
-          <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined">manage_accounts</span><span>Usuarios</span>
-          </a>
-          <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors">
-            <span class="material-symbols-outlined">person</span><span>Mi Perfil</span>
-          </a>
-        </div>
-      </nav>
+      <div>
+        <div class="cc-sidebar-app">ClassControl</div>
+        <div class="cc-sidebar-sub">Gestión Educativa</div>
+      </div>
     </div>
 
-    <!-- Logout -->
-    <div class="p-4 border-t border-white/10">
-      <button class="flex items-center justify-center gap-2 w-full py-2.5 bg-primary hover:bg-primary/90 rounded-lg font-bold transition-all shadow-lg">
-        <span class="material-symbols-outlined">logout</span>
-        Cerrar Sesión
-      </button>
+    <!-- Navegación -->
+    <nav class="cc-nav">
+      <a class="cc-nav-link" href="Pagina Principal.html">
+        <i class="bi bi-speedometer2"></i><span>Inicio</span>
+      </a>
+      <a class="cc-nav-link active" href="Fichas.html">
+        <i class="bi bi-file-earmark-text"></i><span>Fichas</span>
+      </a>
+      <a class="cc-nav-link" href="Instructores.html">
+        <i class="bi bi-people"></i><span>Instructores</span>
+      </a>
+      <a class="cc-nav-link" href="Programas.html">
+        <i class="bi bi-mortarboard"></i><span>Programas</span>
+      </a>
+      <a class="cc-nav-link" href="Ambientes.html">
+        <i class="bi bi-door-open"></i><span>Ambientes</span>
+      </a>
+      <a class="cc-nav-link" href="Competencias.html">
+        <i class="bi bi-bullseye"></i><span>Competencias</span>
+      </a>
+      <a class="cc-nav-link" href="Actividades.html">
+        <i class="bi bi-check2-square"></i><span>Actividades</span>
+      </a>
+      <a class="cc-nav-link" href="Programacion instructores.html">
+        <i class="bi bi-calendar3"></i><span>Programación</span>
+      </a>
+      <div class="cc-nav-divider"></div>
+      <a class="cc-nav-link" href="#">
+        <i class="bi bi-bar-chart-line"></i><span>Reportes</span>
+      </a>
+      <a class="cc-nav-link" href="#">
+        <i class="bi bi-person-gear"></i><span>Usuarios</span>
+      </a>
+      <a class="cc-nav-link" href="#">
+        <i class="bi bi-person-circle"></i><span>Mi Perfil</span>
+      </a>
+    </nav>
+
+    <!-- Cerrar sesión -->
+    <div class="p-3 mt-auto" style="border-top:1px solid rgba(255,255,255,.1)">
+      <a href="Inicio_de_sesion.html" class="btn cc-btn-logout w-100">
+        <i class="bi bi-box-arrow-left me-2"></i>Cerrar Sesión
+      </a>
     </div>
   </aside>
 
-  <!-- ═══════════════════════════════════════════════
-       MAIN
-  ═══════════════════════════════════════════════ -->
-  <main class="flex-1 flex flex-col overflow-y-auto">
+  <!-- Overlay móvil -->
+  <div class="cc-sidebar-overlay d-lg-none" id="sidebarOverlay"></div>
 
-    <!-- Header -->
-    <header class="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800
-                   flex items-center justify-between px-8 sticky top-0 z-10">
-      <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Gestión de Fichas</h2>
+  <!-- ══════════ MAIN CONTENT ══════════ -->
+  <main class="cc-main-content">
 
-      <div class="flex items-center gap-4">
+    <!-- ── HEADER ── -->
+    <header class="cc-top-header">
+      <div class="d-flex align-items-center gap-3">
+        <!-- Hamburger (solo mobile) -->
+        <button class="btn cc-icon-btn d-lg-none" id="sidebarToggle" aria-label="Menú">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <h2 class="cc-page-title mb-0">Gestión de Fichas</h2>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
         <!-- Dark mode -->
-        <button id="btn-dark-toggle"
-                class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
-                title="Modo oscuro">
-          <span class="material-symbols-outlined">dark_mode</span>
+        <button id="dark-toggle" class="btn cc-icon-btn" title="Cambiar tema">
+          <i class="bi bi-moon" id="dark-icon"></i>
         </button>
 
-        <!-- Notification -->
-        <button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative">
-          <span class="material-symbols-outlined">notifications</span>
-          <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+        <!-- Notificaciones -->
+        <button class="btn cc-icon-btn position-relative" aria-label="Notificaciones">
+          <i class="bi bi-bell fs-5"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="font-size:.45rem">●</span>
         </button>
 
-        <!-- User -->
-        <div class="flex items-center gap-3 pl-4 border-l border-slate-200 dark:border-slate-700">
-          <div class="text-right">
-            <p class="text-sm font-bold leading-none">Carlos Rodríguez</p>
-            <p class="text-xs text-slate-500 mt-1">Coordinador Académico</p>
-          </div>
-          <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden border-2 border-primary/20">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4LoGWb00BoiO00zOUxRYwg_qXO7NvwhUrMZjpin1LBJrWmBSE0ftr0UU3E2JybOAT1uE139t9mgWb1F2v87C1kAjKuhTJN7Er_tWYYSNzjjUP6e_asLxN4EkNdR0vZxA2RgXdsblODJ9iZK5e5FNqK7yiq0OYu74fIoRy6WUdWKHmofYrCgOwppzpAmfzghF9LlILX-18DFGc1irIBLAwjlEXJplwlFI7Xu7Okm06dD0-So3ke7IjPPW0uU7HzJfaJ3QvPL9EOs"
-                 alt="Avatar usuario" />
-          </div>
+        <div class="vr cc-nav-vr d-none d-sm-block"></div>
+
+        <!-- Usuario -->
+        <div class="d-none d-sm-block text-end">
+          <div class="cc-user-name">Carlos Rodríguez</div>
+          <div class="cc-user-role">Coordinador Académico</div>
         </div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4LoGWb00BoiO00zOUxRYwg_qXO7NvwhUrMZjpin1LBJrWmBSE0ftr0UU3E2JybOAT1uE139t9mgWb1F2v87C1kAjKuhTJN7Er_tWYYSNzjjUP6e_asLxN4EkNdR0vZxA2RgXdsblODJ9iZK5e5FNqK7yiq0OYu74fIoRy6WUdWKHmofYrCgOwppzpAmfzghF9LlILX-18DFGc1irIBLAwjlEXJplwlFI7Xu7Okm06dD0-So3ke7IjPPW0uU7HzJfaJ3QvPL9EOs"
+             alt="Avatar" class="cc-avatar"/>
       </div>
     </header>
 
-    <!-- Page content -->
-    <div class="p-8 space-y-6">
+    <!-- ── CONTENIDO ── -->
+    <div class="cc-dashboard-body">
 
-      <!-- ── Filters & Search ── -->
-      <div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100
-                  dark:border-slate-800 flex flex-wrap gap-4 items-center justify-between">
-        <div class="flex flex-1 min-w-[300px] gap-4 flex-wrap">
+      <!-- Barra de filtros -->
+      <div class="card cc-filter-card border-0 shadow-sm mb-4">
+        <div class="card-body py-3">
+          <div class="row g-2 align-items-center">
 
-          <!-- Search -->
-          <div class="relative flex-1 min-w-[200px]">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-            <input id="search-input" type="text"
-                   placeholder="Buscar por código o programa..."
-                   class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200
-                          dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20
-                          bg-slate-50 dark:bg-slate-800 text-sm outline-none transition-all" />
+            <!-- Búsqueda -->
+            <div class="col-12 col-lg-4">
+              <div class="input-group cc-search-group">
+                <span class="input-group-text bg-transparent border-end-0 cc-search-addon">
+                  <i class="bi bi-search"></i>
+                </span>
+                <input id="search-input" type="search"
+                       class="form-control border-start-0 ps-0 cc-search-input"
+                       placeholder="Buscar por código o programa…"
+                       autocomplete="off"/>
+              </div>
+            </div>
+
+            <!-- Estado -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <select id="filter-estado" class="form-select form-select-sm cc-filter-select">
+                <option value="">Estado: Todos</option>
+                <option value="Activa">Activa</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Finalizada">Finalizada</option>
+              </select>
+            </div>
+
+            <!-- Modalidad -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <select id="filter-modalidad" class="form-select form-select-sm cc-filter-select">
+                <option value="">Modalidad: Todas</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Distancia">Distancia</option>
+              </select>
+            </div>
+
+            <!-- Sede -->
+            <div class="col-6 col-sm-4 col-lg-2">
+              <select id="filter-sede" class="form-select form-select-sm cc-filter-select">
+                <option value="">Sede: Todas</option>
+                <option value="Sede Central">Sede Central</option>
+                <option value="Sede Norte">Sede Norte</option>
+                <option value="Centro Industrial">Centro Industrial</option>
+              </select>
+            </div>
+
+            <!-- Nueva ficha -->
+            <div class="col-6 col-lg-2 text-lg-end">
+              <button id="btn-new-ficha" class="btn cc-btn-action w-100">
+                <i class="bi bi-plus-circle me-1"></i>Nueva Ficha
+              </button>
+            </div>
+
           </div>
-
-          <!-- Filters -->
-          <select id="filter-estado"
-                  class="rounded-lg border border-slate-200 dark:border-slate-700 text-sm
-                         focus:border-primary focus:ring-2 focus:ring-primary/20
-                         bg-slate-50 dark:bg-slate-800 px-3 py-2.5 outline-none">
-            <option value="">Estado: Todos</option>
-            <option value="Activa">Activa</option>
-            <option value="Finalizada">Finalizada</option>
-            <option value="En proceso">En proceso</option>
-          </select>
-
-          <select id="filter-modalidad"
-                  class="rounded-lg border border-slate-200 dark:border-slate-700 text-sm
-                         focus:border-primary focus:ring-2 focus:ring-primary/20
-                         bg-slate-50 dark:bg-slate-800 px-3 py-2.5 outline-none">
-            <option value="">Modalidad: Todas</option>
-            <option value="Presencial">Presencial</option>
-            <option value="Virtual">Virtual</option>
-            <option value="Distancia">Distancia</option>
-          </select>
-
-          <select id="filter-sede"
-                  class="rounded-lg border border-slate-200 dark:border-slate-700 text-sm
-                         focus:border-primary focus:ring-2 focus:ring-primary/20
-                         bg-slate-50 dark:bg-slate-800 px-3 py-2.5 outline-none">
-            <option value="">Sede: Todas</option>
-            <option value="Sede Norte">Sede Norte</option>
-            <option value="Sede Central">Sede Central</option>
-            <option value="Centro Industrial">Centro Industrial</option>
-          </select>
-        </div>
-
-        <!-- Nueva Ficha button -->
-        <button id="btn-new-ficha"
-                class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-bold
-                       flex items-center gap-2 transition-all shadow-lg shadow-primary/25 active:scale-95">
-          <span class="material-symbols-outlined">add_circle</span>
-          Nueva Ficha
-        </button>
-      </div>
-
-      <!-- ── Table ── -->
-      <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100
-                  dark:border-slate-800 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Código</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Programa de Formación</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Fechas</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Modalidad</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Aprendices</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Estado</th>
-                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="fichas-tbody" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
-          </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100
-                    dark:border-slate-800 flex items-center justify-between">
-          <p class="text-sm text-slate-500">
-            Mostrando <span id="count-showing" class="font-bold text-slate-700 dark:text-slate-300">0</span>
-            de <span id="count-total" class="font-bold text-slate-700 dark:text-slate-300">0</span> fichas
-          </p>
-          <div id="pagination-btns" class="flex gap-1"></div>
         </div>
       </div>
 
-    </div><!-- /p-8 -->
+      <!-- Tabla DataTables -->
+      <div class="card cc-widget-card border-0 shadow-sm">
+        <div class="card-body p-3 p-md-4">
+          <div class="table-responsive">
+            <table id="tabla-fichas" class="table table-hover align-middle cc-table w-100">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Programa de Formación</th>
+                  <th class="text-center">Fechas</th>
+                  <th>Modalidad</th>
+                  <th class="text-center">Aprendices</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="fichas-tbody">
+                <!-- Filas generadas por FichasJS.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cc-dashboard-body -->
   </main>
-</div><!-- /flex -->
+</div><!-- /cc-app-wrapper -->
+
+<!-- Toast container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"
+     style="z-index:1100"></div>
 
 
-<!-- ═══════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════
      MODAL — NUEVA / EDITAR FICHA
-═══════════════════════════════════════════════════════════ -->
-<div id="modal-form-overlay" class="modal-overlay" role="dialog" aria-modal="true"
-     aria-labelledby="form-modal-title">
-  <div class="modal-box">
+════════════════════════════════════ -->
+<div class="modal fade" id="modal-form" tabindex="-1"
+     aria-labelledby="form-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content cc-modal">
 
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6">
-      <h3 id="form-modal-title" class="text-lg font-bold text-sena-dark dark:text-white">
-        Nueva Ficha
-      </h3>
-      <button id="btn-close-form" aria-label="Cerrar"
-              class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-        <span class="material-symbols-outlined text-slate-500">close</span>
-      </button>
+      <div class="modal-header cc-modal-header">
+        <h5 class="modal-title" id="form-modal-title">
+          <i class="bi bi-file-earmark-plus me-2"></i>Nueva Ficha
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form id="ficha-form" novalidate>
+        <div class="modal-body">
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-codigo">
+                Código <span class="text-danger">*</span>
+              </label>
+              <input id="f-codigo" type="text" class="form-control"
+                     placeholder="Ej. 2560342" required/>
+              <div class="invalid-feedback">El código es obligatorio.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-nivel">Nivel</label>
+              <select id="f-nivel" class="form-select">
+                <option value="Técnico">Técnico</option>
+                <option value="Tecnólogo">Tecnólogo</option>
+                <option value="Auxiliar">Auxiliar</option>
+                <option value="Especialización">Especialización</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="f-programa">
+                Programa de Formación <span class="text-danger">*</span>
+              </label>
+              <input id="f-programa" type="text" class="form-control"
+                     placeholder="Nombre del programa" required/>
+              <div class="invalid-feedback">El programa es obligatorio.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-sede">Sede</label>
+              <select id="f-sede" class="form-select">
+                <option value="Sede Central">Sede Central</option>
+                <option value="Sede Norte">Sede Norte</option>
+                <option value="Centro Industrial">Centro Industrial</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-modalidad">Modalidad</label>
+              <select id="f-modalidad" class="form-select">
+                <option value="Presencial">Presencial</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Distancia">Distancia</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-inicio">Fecha de Inicio</label>
+              <input id="f-inicio" type="date" class="form-control"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-fin">Fecha de Fin</label>
+              <input id="f-fin" type="date" class="form-control"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-aprendices">N.º Aprendices</label>
+              <input id="f-aprendices" type="number" min="0"
+                     class="form-control" placeholder="0"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="f-estado">Estado</label>
+              <select id="f-estado" class="form-select">
+                <option value="Activa">Activa</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Finalizada">Finalizada</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="f-notas">Notas u observaciones</label>
+              <textarea id="f-notas" class="form-control" rows="2"
+                        placeholder="Información adicional…"></textarea>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer cc-modal-footer">
+          <button type="button" id="btn-form-delete"
+                  class="btn btn-outline-danger me-auto d-none">
+            <i class="bi bi-trash me-1"></i>Eliminar
+          </button>
+          <button type="button" class="btn cc-btn-secondary"
+                  data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn cc-btn-action">
+            <i class="bi bi-save me-1"></i>Guardar ficha
+          </button>
+        </div>
+      </form>
+
     </div>
-
-    <!-- Form -->
-    <form id="ficha-form" novalidate>
-
-      <!-- Código + Nivel -->
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label for="f-codigo" class="form-label">Código <span class="text-red-500">*</span></label>
-          <input id="f-codigo" type="text" class="form-input"
-                 placeholder="Ej. 2560342" required />
-        </div>
-        <div>
-          <label for="f-nivel" class="form-label">Nivel</label>
-          <select id="f-nivel" class="form-select">
-            <option value="Técnico">Técnico</option>
-            <option value="Tecnólogo">Tecnólogo</option>
-            <option value="Auxiliar">Auxiliar</option>
-            <option value="Especialización">Especialización</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Programa -->
-      <div class="mb-4">
-        <label for="f-programa" class="form-label">Programa de Formación <span class="text-red-500">*</span></label>
-        <input id="f-programa" type="text" class="form-input"
-               placeholder="Nombre del programa" required />
-      </div>
-
-      <!-- Sede + Modalidad -->
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label for="f-sede" class="form-label">Sede</label>
-          <select id="f-sede" class="form-select">
-            <option value="Sede Central">Sede Central</option>
-            <option value="Sede Norte">Sede Norte</option>
-            <option value="Centro Industrial">Centro Industrial</option>
-          </select>
-        </div>
-        <div>
-          <label for="f-modalidad" class="form-label">Modalidad</label>
-          <select id="f-modalidad" class="form-select">
-            <option value="Presencial">Presencial</option>
-            <option value="Virtual">Virtual</option>
-            <option value="Distancia">Distancia</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Fecha inicio + Fecha fin -->
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label for="f-inicio" class="form-label">Fecha de Inicio</label>
-          <input id="f-inicio" type="date" class="form-input" />
-        </div>
-        <div>
-          <label for="f-fin" class="form-label">Fecha de Fin</label>
-          <input id="f-fin" type="date" class="form-input" />
-        </div>
-      </div>
-
-      <!-- Aprendices + Estado -->
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label for="f-aprendices" class="form-label">N.º Aprendices</label>
-          <input id="f-aprendices" type="number" min="0" class="form-input"
-                 placeholder="0" />
-        </div>
-        <div>
-          <label for="f-estado" class="form-label">Estado</label>
-          <select id="f-estado" class="form-select">
-            <option value="Activa">Activa</option>
-            <option value="En proceso">En proceso</option>
-            <option value="Finalizada">Finalizada</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Notas -->
-      <div class="mb-6">
-        <label for="f-notas" class="form-label">Notas u observaciones</label>
-        <textarea id="f-notas" class="form-textarea"
-                  placeholder="Información adicional sobre la ficha..."></textarea>
-      </div>
-
-      <!-- Actions -->
-      <div class="flex items-center gap-3">
-        <button type="submit"
-                class="flex-1 bg-primary hover:bg-primary/90 text-white py-2.5 rounded-lg
-                       font-bold text-sm transition-all shadow-sm">
-          Guardar ficha
-        </button>
-        <button type="button" id="btn-form-delete"
-                class="hidden bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg
-                       font-bold text-sm transition-all">
-          Eliminar
-        </button>
-        <button type="button" id="btn-cancel-form"
-                class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600
-                       text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-lg
-                       font-bold text-sm transition-all">
-          Cancelar
-        </button>
-      </div>
-    </form>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════════
-     MODAL — DETALLE (read-only)
-═══════════════════════════════════════════════════════════ -->
-<div id="modal-detail-overlay" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="modal-box">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-sena-dark dark:text-white flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary">description</span>
-        Detalle de Ficha
-      </h3>
-      <button id="btn-close-detail" aria-label="Cerrar"
-              class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-        <span class="material-symbols-outlined text-slate-500">close</span>
-      </button>
+<!-- ════════════════════════════════════
+     MODAL — DETALLE (solo lectura)
+════════════════════════════════════ -->
+<div class="modal fade" id="modal-detail" tabindex="-1"
+     aria-labelledby="detail-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content cc-modal">
+
+      <div class="modal-header cc-modal-header">
+        <h5 class="modal-title" id="detail-modal-title">
+          <i class="bi bi-file-earmark-text me-2"
+             style="color:var(--cc-primary)"></i>Detalle de Ficha
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="detail-content">
+        <!-- Inyectado por JS -->
+      </div>
+
+      <div class="modal-footer cc-modal-footer">
+        <button type="button" class="btn cc-btn-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" id="btn-detail-edit" class="btn cc-btn-action">
+          <i class="bi bi-pencil me-1"></i>Editar
+        </button>
+      </div>
+
     </div>
-    <div id="detail-content"></div>
   </div>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════
      MODAL — CONFIRMAR ELIMINACIÓN
-═══════════════════════════════════════════════════════════ -->
-<div id="modal-confirm-overlay" class="modal-overlay" role="dialog" aria-modal="true">
-  <div class="confirm-box dark:bg-slate-800">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-        <span class="material-symbols-outlined text-red-600">warning</span>
+════════════════════════════════════ -->
+<div class="modal fade" id="modal-confirm" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content cc-modal">
+
+      <div class="modal-body p-4">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="cc-warn-icon">
+            <i class="bi bi-exclamation-triangle-fill text-danger fs-4"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-0">Eliminar ficha</h6>
+            <small class="text-muted">Esta acción no se puede deshacer.</small>
+          </div>
+        </div>
+        <p class="text-muted mb-0" style="font-size:.875rem">
+          ¿Confirmas eliminar la ficha
+          <strong id="confirm-ficha-name" class="text-dark"></strong>?
+        </p>
       </div>
-      <div>
-        <h3 class="font-bold text-slate-800 dark:text-white">Eliminar ficha</h3>
-        <p class="text-xs text-slate-500 mt-0.5">Esta acción no se puede deshacer.</p>
+
+      <div class="modal-footer cc-modal-footer border-0 pt-0">
+        <button type="button" class="btn cc-btn-secondary"
+                data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="btn-confirm-delete" class="btn btn-danger">
+          <i class="bi bi-trash me-1"></i>Sí, eliminar
+        </button>
       </div>
-    </div>
-    <p class="text-sm text-slate-600 dark:text-slate-300 mb-6">
-      ¿Estás seguro de que deseas eliminar la ficha
-      <span id="confirm-ficha-name" class="font-semibold text-slate-800 dark:text-white"></span>?
-    </p>
-    <div class="flex gap-3">
-      <button id="btn-confirm-delete"
-              class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-lg
-                     font-bold text-sm transition-all">
-        Sí, eliminar
-      </button>
-      <button id="btn-cancel-delete"
-              class="flex-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600
-                     text-slate-700 dark:text-slate-200 py-2.5 rounded-lg
-                     font-bold text-sm transition-all">
-        Cancelar
-      </button>
+
     </div>
   </div>
 </div>
 
 
-<!-- Toast -->
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-<!-- App script -->
-<script src="FichasJS.js"></script>
+<!-- ── Librerías JS ── -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<!-- JS en la MISMA carpeta que el HTML -->
+<script src="JS/FichasJS.js"></script>
 </body>
 </html>

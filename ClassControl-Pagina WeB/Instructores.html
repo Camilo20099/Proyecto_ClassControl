@@ -1,370 +1,342 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Gestión de Instructores - ClassControl</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary":          "#38a800",
-            "primary-dark":     "#2d8600",
-            "background-light": "#f6f8f5",
-            "background-dark":  "#16230f",
-            "sena-dark":        "#00304D",
-            "accent-blue":      "#1e40af",
-          },
-          fontFamily: { "display": ["Inter"] },
-          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-        },
-      },
-    }
-  </script>
-  <link rel="stylesheet" href="InstructoresCSS.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Instructores — ClassControl</title>
+
+  <!-- Google Fonts: DM Sans + DM Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- DataTables Bootstrap 5 -->
+  <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+  <!-- Shared base styles -->
+  <link rel="stylesheet" href="CSS/Pagina PrincipalCSS.css" />
+  <!-- Page-specific styles -->
+  <link rel="stylesheet" href="CSS/InstructoresCSS.css" />
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
 
-<div class="flex min-h-screen">
+<body>
+<div class="cc-wrapper">
 
-  <!-- ===== Sidebar ===== -->
-  <aside class="w-64 bg-sena-dark text-white flex flex-col shrink-0">
-    <div class="p-6 flex flex-col gap-1 flex-1">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="bg-white p-1 rounded-lg">
-          <img alt="Logo SENA" src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"/>
-        </div>
-        <div>
-          <h1 class="text-xl font-bold leading-none">ClassControl</h1>
-          <p class="text-xs text-primary font-medium">Gestión Educativa</p>
-        </div>
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="cc-sidebar" id="cc-sidebar">
+    <div class="cc-sidebar-logo">
+      <div class="cc-logo-box">
+        <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png" alt="Logo SENA" />
       </div>
-
-      <nav class="flex flex-col gap-1">
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Pagina Principal.html">
-          <span class="material-symbols-outlined">dashboard</span><span>Inicio</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Fichas.html">
-          <span class="material-symbols-outlined">description</span><span>Fichas</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white font-medium" href="Instructores.html">
-          <span class="material-symbols-outlined">groups</span><span>Instructores</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Programas.html">
-          <span class="material-symbols-outlined">school</span><span>Programas</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Ambientes.html">
-          <span class="material-symbols-outlined">meeting_room</span><span>Ambientes</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Competencias.html">
-          <span class="material-symbols-outlined">target</span><span>Competencias</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Actividades.html">
-          <span class="material-symbols-outlined">assignment_turned_in</span><span>Actividades</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="Programacion instructores.html">
-          <span class="material-symbols-outlined">calendar_month</span><span>Programación</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors border-t border-white/10 mt-2 pt-4" href="#">
-          <span class="material-symbols-outlined">analytics</span><span>Reportes</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
-          <span class="material-symbols-outlined">manage_accounts</span><span>Usuarios</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
-          <span class="material-symbols-outlined">person</span><span>Mi Perfil</span>
-        </a>
-      </nav>
-    </div>
-
-    <!-- User card -->
-    <div class="p-4 bg-slate-50/10 m-4 rounded-xl">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-slate-300 overflow-hidden">
-          <img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC47qtltaWygGkaLmhJsAk5SHC5TqnoVHsO_Pm6E2iA3BVRB18DexiSVlRiULaL1HNjqUV_lk5bTIjNp5Z4wT-LB5MIItOfoIiNW7juD6nR9G7BwvIvj5n-qy96C0TV3CtABEwqXdWy-A3pX8SV5F0y1d75Tzleo6Bl7rmg-Ns4mv7adavlZTBDrZU-1EgB1EQX2zyw1vG1XYjTK3EBcO-D4nVpUnzbWpXfFrtIvgvMmZRgpgAvl8uUL_oFmTAgHpXeqQb6LAlXz6o"/>
-        </div>
-        <div class="overflow-hidden">
-          <p class="text-xs font-bold truncate">Coordinación Académica</p>
-          <p class="text-[10px] text-slate-400 truncate">SENA Centro Metalmecánico</p>
-        </div>
+      <div>
+        <h1 class="cc-brand-name">ClassControl</h1>
+        <p class="cc-brand-sub">Gestión Educativa</p>
       </div>
     </div>
+
+    <nav class="cc-nav">
+      <a class="cc-nav-link" href="Pagina Principal.html">
+        <span class="material-symbols-outlined">dashboard</span><span>Inicio</span>
+      </a>
+      <a class="cc-nav-link" href="Fichas.html">
+        <span class="material-symbols-outlined">description</span><span>Fichas</span>
+      </a>
+      <a class="cc-nav-link active" href="Instructores.html">
+        <span class="material-symbols-outlined">groups</span><span>Instructores</span>
+      </a>
+      <a class="cc-nav-link" href="Programas.html">
+        <span class="material-symbols-outlined">school</span><span>Programas</span>
+      </a>
+      <a class="cc-nav-link" href="Ambientes.html">
+        <span class="material-symbols-outlined">meeting_room</span><span>Ambientes</span>
+      </a>
+      <a class="cc-nav-link" href="Competencias.html">
+        <span class="material-symbols-outlined">target</span><span>Competencias</span>
+      </a>
+      <a class="cc-nav-link" href="Actividades.html">
+        <span class="material-symbols-outlined">assignment_turned_in</span><span>Actividades</span>
+      </a>
+      <a class="cc-nav-link" href="Programacion instructores.html">
+        <span class="material-symbols-outlined">calendar_month</span><span>Programación</span>
+      </a>
+      <div class="cc-nav-separator"></div>
+      <a class="cc-nav-link" href="#">
+        <span class="material-symbols-outlined">analytics</span><span>Reportes</span>
+      </a>
+      <a class="cc-nav-link" href="#">
+        <span class="material-symbols-outlined">manage_accounts</span><span>Usuarios</span>
+      </a>
+      <a class="cc-nav-link" href="#">
+        <span class="material-symbols-outlined">person</span><span>Mi Perfil</span>
+      </a>
+    </nav>
+
+    <div class="cc-sidebar-footer">© 2024 SENA ClassControl</div>
   </aside>
 
-  <!-- ===== Main ===== -->
-  <main class="ml-10 flex-1 p-8">
+  <!-- ══════════════ MAIN ══════════════ -->
+  <main class="cc-main">
 
-    <!-- Header -->
-    <header class="flex flex-wrap justify-between items-center gap-4 mb-8">
-      <div>
-        <h2 class="text-3xl font-extrabold text-accent-blue dark:text-white tracking-tight">
-          Gestión de Instructores
-        </h2>
-        <p class="text-slate-500 dark:text-slate-400 mt-1">
-          Administra el personal docente e instructores de la plataforma institucional.
-        </p>
+    <!-- HEADER -->
+    <header class="cc-header">
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm cc-hamburger d-lg-none me-1" id="sidebar-toggle" aria-label="Menú">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div>
+          <h2 class="cc-page-title mb-0">Gestión de Instructores</h2>
+          <p class="cc-page-sub mb-0 d-none d-md-block">Administra el personal docente e instructores.</p>
+        </div>
       </div>
-      <div class="flex items-center gap-3">
-        <button id="btn-descargar"
-          class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-slate-50 transition-colors shadow-sm text-sm">
-          <span class="material-symbols-outlined text-sm">file_download</span>
-          Exportar
+
+      <div class="cc-header-right">
+        <!-- Exportar -->
+        <button id="btn-descargar" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1">
+          <span class="material-symbols-outlined" style="font-size:1rem">file_download</span>
+          <span class="d-none d-md-inline">Exportar</span>
         </button>
-        <button id="btn-nuevo-instructor"
-          class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/25 active:scale-95">
+        <!-- Nuevo Instructor -->
+        <button id="btn-nuevo-instructor" class="btn cc-btn-primary"
+                data-bs-toggle="modal" data-bs-target="#modal-instructor">
           <span class="material-symbols-outlined">add_circle</span>
-          Nuevo Instructor
+          <span class="d-none d-sm-inline">Nuevo Instructor</span>
         </button>
+        <!-- Dark toggle -->
+        <button id="dark-toggle" class="btn cc-icon-btn" title="Cambiar tema">
+          <span class="material-symbols-outlined">dark_mode</span>
+        </button>
+        <!-- User -->
+        <div class="cc-user-info text-end d-none d-lg-block">
+          <p class="cc-user-name mb-0">Coordinación Académica</p>
+          <p class="cc-user-role mb-0">SENA Centro Metalmecánico</p>
+        </div>
+        <div class="cc-avatar">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC47qtltaWygGkaLmhJsAk5SHC5TqnoVHsO_Pm6E2iA3BVRB18DexiSVlRiULaL1HNjqUV_lk5bTIjNp5Z4wT-LB5MIItOfoIiNW7juD6nR9G7BwvIvj5n-qy96C0TV3CtABEwqXdWy-A3pX8SV5F0y1d75Tzleo6Bl7rmg-Ns4mv7adavlZTBDrZU-1EgB1EQX2zyw1vG1XYjTK3EBcO-D4nVpUnzbWpXfFrtIvgvMmZRgpgAvl8uUL_oFmTAgHpXeqQb6LAlXz6o"
+               alt="Avatar" />
+        </div>
       </div>
     </header>
 
-    <!-- Métricas -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="metricas"></div>
+    <!-- BODY -->
+    <div class="cc-body">
 
-    <!-- ===== Filtros (FORM) ===== -->
-    <section class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
-      <form id="form-filtros" novalidate>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- ── Métricas ── -->
+      <div class="row g-3 mb-4" id="metricas"></div>
 
-          <!-- Búsqueda -->
-          <div class="lg:col-span-2 relative">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-            <input id="filtro-busqueda" name="busqueda" type="text"
-              placeholder="Buscar por nombre, apellido o cédula..."
-              class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm"/>
+      <!-- ── Filtros ── -->
+      <div class="cc-widget-card mb-4">
+        <form id="form-filtros" novalidate>
+          <div class="row g-3 align-items-end">
+            <!-- Búsqueda -->
+            <div class="col-12 col-md-4">
+              <div class="input-group cc-search-group">
+                <span class="input-group-text bg-transparent border-end-0">
+                  <span class="material-symbols-outlined cc-icon-sm">search</span>
+                </span>
+                <input id="filtro-busqueda" type="search" class="form-control border-start-0 ps-0"
+                       placeholder="Buscar por nombre, apellido o cédula…" autocomplete="off" />
+              </div>
+            </div>
+            <!-- Rol -->
+            <div class="col-6 col-md-2">
+              <select id="filtro-rol" class="form-select">
+                <option value="">Todos los Roles</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Coordinador">Coordinador</option>
+              </select>
+            </div>
+            <!-- Estado -->
+            <div class="col-6 col-md-2">
+              <select id="filtro-estado" class="form-select">
+                <option value="">Estado</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+            <!-- Botones de filtro -->
+            <div class="col-12 col-md-4 d-flex gap-2 justify-content-md-end">
+              <button type="submit" class="btn cc-btn-primary flex-grow-1 flex-md-grow-0">
+                <span class="material-symbols-outlined" style="font-size:1rem">filter_list</span> Filtrar
+              </button>
+              <button type="reset" id="btn-limpiar" class="btn btn-outline-secondary" title="Limpiar filtros">
+                <span class="material-symbols-outlined" style="font-size:1rem">filter_alt_off</span>
+              </button>
+            </div>
           </div>
+        </form>
+      </div>
 
-          <!-- Rol -->
-          <div class="relative">
-            <select id="filtro-rol" name="rol"
-              class="w-full pl-3 pr-10 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm">
-              <option value="">Todos los Roles</option>
-              <option value="Instructor">Instructor</option>
-              <option value="Administrador">Administrador</option>
-              <option value="Coordinador">Coordinador</option>
-            </select>
-            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+      <!-- ── DataTable ── -->
+      <div class="cc-table-card">
+        <div class="table-responsive">
+          <table id="instructores-table" class="table table-hover align-middle mb-0 w-100">
+            <thead>
+              <tr>
+                <th>Instructor</th>
+                <th>Identificación</th>
+                <th>Correo</th>
+                <th>Área</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-instructores"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /cc-body -->
+  </main>
+</div><!-- /cc-wrapper -->
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ══════════════ MODAL: Nuevo / Editar Instructor ══════════════ -->
+<div class="modal fade" id="modal-instructor" tabindex="-1"
+     aria-labelledby="modal-titulo" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-titulo">Nuevo Instructor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <form id="form-instructor" novalidate>
+        <input type="hidden" id="inst-id" />
+        <div class="modal-body">
+          <div class="row g-3">
+            <!-- Nombres + Apellidos -->
+            <div class="col-6">
+              <label for="inst-nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
+              <input id="inst-nombres" type="text" class="form-control"
+                     placeholder="Ej. Carlos Alberto" required />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="col-6">
+              <label for="inst-apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+              <input id="inst-apellidos" type="text" class="form-control"
+                     placeholder="Ej. Gómez Ruiz" required />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <!-- Cédula -->
+            <div class="col-12">
+              <label for="inst-cedula" class="form-label">Cédula / Identificación <span class="text-danger">*</span></label>
+              <input id="inst-cedula" type="text" class="form-control"
+                     placeholder="Ej. 1.020.304.050" required />
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <!-- Correo -->
+            <div class="col-12">
+              <label for="inst-correo" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+              <input id="inst-correo" type="email" class="form-control"
+                     placeholder="Ej. nombre@sena.edu.co" required />
+              <div class="invalid-feedback">Ingresa un correo válido.</div>
+            </div>
+            <!-- Teléfono -->
+            <div class="col-12">
+              <label for="inst-telefono" class="form-label">Teléfono</label>
+              <input id="inst-telefono" type="tel" class="form-control"
+                     placeholder="Ej. 3001234567" />
+            </div>
+            <!-- Área + Rol -->
+            <div class="col-6">
+              <label for="inst-area" class="form-label">Área <span class="text-danger">*</span></label>
+              <select id="inst-area" class="form-select" required>
+                <option value="">Seleccionar…</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="Idiomas">Idiomas</option>
+                <option value="Matemáticas">Matemáticas</option>
+                <option value="Transversal">Transversal</option>
+                <option value="Gestión">Gestión</option>
+              </select>
+              <div class="invalid-feedback">Selecciona un área.</div>
+            </div>
+            <div class="col-6">
+              <label for="inst-rol" class="form-label">Rol <span class="text-danger">*</span></label>
+              <select id="inst-rol" class="form-select" required>
+                <option value="">Seleccionar…</option>
+                <option value="Instructor">Instructor</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Coordinador">Coordinador</option>
+              </select>
+              <div class="invalid-feedback">Selecciona un rol.</div>
+            </div>
+            <!-- Estado -->
+            <div class="col-12">
+              <label for="inst-estado" class="form-label">Estado <span class="text-danger">*</span></label>
+              <select id="inst-estado" class="form-select" required>
+                <option value="">Seleccionar…</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+              <div class="invalid-feedback">Selecciona un estado.</div>
+            </div>
           </div>
-
-          <!-- Estado -->
-          <div class="relative">
-            <select id="filtro-estado" name="estado"
-              class="w-full pl-3 pr-10 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm">
-              <option value="">Estado</option>
-              <option value="Activo">Activo</option>
-              <option value="Inactivo">Inactivo</option>
-            </select>
-            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
-          </div>
-
-          <!-- Botones -->
-          <div class="flex gap-2">
-            <button type="submit"
-              class="flex-1 bg-sena-dark hover:bg-sena-dark/90 text-white font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all text-sm">
-              <span class="material-symbols-outlined text-sm">filter_list</span>
-              Filtrar
-            </button>
-            <button type="reset" id="btn-limpiar"
-              class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 p-2.5 rounded-lg transition-colors" title="Limpiar filtros">
-              <span class="material-symbols-outlined text-slate-600 dark:text-slate-400">filter_alt_off</span>
-            </button>
-          </div>
-
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn cc-btn-primary">
+            <span class="material-symbols-outlined">save</span> Guardar
+          </button>
         </div>
       </form>
-    </section>
-
-    <!-- ===== Tabla ===== -->
-    <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Instructor</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Identificación</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Correo</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Área</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Rol</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Estado</th>
-              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-instructores" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
-        </table>
-      </div>
-
-      <!-- Paginación -->
-      <footer class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-        <span id="contador-instructores" class="text-xs text-slate-500 dark:text-slate-400"></span>
-        <div id="paginacion" class="flex items-center gap-2"></div>
-      </footer>
     </div>
-
-  </main>
+  </div>
 </div>
 
-<!-- ===== Modal Nuevo / Editar Instructor ===== -->
-<div id="modal-instructor" class="modal-overlay hidden">
-  <div class="modal-container bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-lg p-8">
-    <div class="flex items-center justify-between mb-6">
-      <h3 id="modal-titulo" class="text-xl font-bold text-slate-800 dark:text-white">Nuevo Instructor</h3>
-      <button id="btn-cerrar-modal" class="text-slate-400 hover:text-slate-600 transition-colors">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-
-    <form id="form-instructor" novalidate>
-      <input type="hidden" id="inst-id" name="id"/>
-      <div class="grid grid-cols-1 gap-5">
-
-        <!-- Nombres y Apellidos -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label" for="inst-nombres">Nombres <span class="text-red-500">*</span></label>
-            <input id="inst-nombres" name="nombres" type="text" required
-              class="input-field w-full" placeholder="Ej. Carlos Alberto"/>
-            <p class="error-msg hidden text-xs text-red-500 mt-1">Este campo es obligatorio.</p>
-          </div>
-          <div>
-            <label class="form-label" for="inst-apellidos">Apellidos <span class="text-red-500">*</span></label>
-            <input id="inst-apellidos" name="apellidos" type="text" required
-              class="input-field w-full" placeholder="Ej. Gómez Ruiz"/>
-            <p class="error-msg hidden text-xs text-red-500 mt-1">Este campo es obligatorio.</p>
-          </div>
-        </div>
-
-        <!-- Identificación -->
-        <div>
-          <label class="form-label" for="inst-cedula">Cédula / Identificación <span class="text-red-500">*</span></label>
-          <input id="inst-cedula" name="cedula" type="text" required
-            class="input-field w-full" placeholder="Ej. 1.020.304.050"/>
-          <p class="error-msg hidden text-xs text-red-500 mt-1">Este campo es obligatorio.</p>
-        </div>
-
-        <!-- Correo -->
-        <div>
-          <label class="form-label" for="inst-correo">Correo Electrónico <span class="text-red-500">*</span></label>
-          <input id="inst-correo" name="correo" type="email" required
-            class="input-field w-full" placeholder="Ej. nombre@sena.edu.co"/>
-          <p class="error-msg hidden text-xs text-red-500 mt-1">Ingresa un correo válido.</p>
-        </div>
-
-        <!-- Teléfono -->
-        <div>
-          <label class="form-label" for="inst-telefono">Teléfono</label>
-          <input id="inst-telefono" name="telefono" type="tel"
-            class="input-field w-full" placeholder="Ej. 3001234567"/>
-        </div>
-
-        <!-- Área + Rol -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label" for="inst-area">Área <span class="text-red-500">*</span></label>
-            <select id="inst-area" name="area" required class="input-field w-full">
-              <option value="">Seleccionar...</option>
-              <option value="Tecnología">Tecnología</option>
-              <option value="Idiomas">Idiomas</option>
-              <option value="Matemáticas">Matemáticas</option>
-              <option value="Transversal">Transversal</option>
-              <option value="Gestión">Gestión</option>
-            </select>
-            <p class="error-msg hidden text-xs text-red-500 mt-1">Selecciona un área.</p>
-          </div>
-          <div>
-            <label class="form-label" for="inst-rol">Rol <span class="text-red-500">*</span></label>
-            <select id="inst-rol" name="rol" required class="input-field w-full">
-              <option value="">Seleccionar...</option>
-              <option value="Instructor">Instructor</option>
-              <option value="Administrador">Administrador</option>
-              <option value="Coordinador">Coordinador</option>
-            </select>
-            <p class="error-msg hidden text-xs text-red-500 mt-1">Selecciona un rol.</p>
-          </div>
-        </div>
-
-        <!-- Estado -->
-        <div>
-          <label class="form-label" for="inst-estado">Estado <span class="text-red-500">*</span></label>
-          <select id="inst-estado" name="estado" required class="input-field w-full">
-            <option value="">Seleccionar...</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
-          <p class="error-msg hidden text-xs text-red-500 mt-1">Selecciona un estado.</p>
-        </div>
-
+<!-- ══════════════ MODAL: Ver Perfil (read-only) ══════════════ -->
+<div class="modal fade" id="modal-detalle" tabindex="-1"
+     aria-labelledby="detalle-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detalle-modal-title">Perfil del Instructor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+      <div class="modal-body">
+        <!-- Avatar + nombre -->
+        <div id="detalle-avatar" class="d-flex align-items-center gap-3 mb-4 pb-4 border-bottom"></div>
+        <!-- Detalles -->
+        <div id="detalle-contenido" class="cc-detail-grid"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <div class="flex justify-end gap-3 mt-8">
-        <button type="button" id="btn-cancelar"
-          class="px-5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 font-medium hover:bg-slate-50 transition-colors text-sm">
-          Cancelar
-        </button>
-        <button type="submit"
-          class="px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-dark text-white font-bold transition-all shadow-lg shadow-primary/25 active:scale-95 text-sm flex items-center gap-2">
-          <span class="material-symbols-outlined text-sm">save</span>
-          Guardar
+<!-- ══════════════ MODAL: Confirmar Eliminación ══════════════ -->
+<div class="modal fade" id="modal-eliminar" tabindex="-1"
+     aria-labelledby="eliminar-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content text-center">
+      <div class="modal-body pt-4">
+        <div class="cc-confirm-icon mx-auto mb-3">
+          <span class="material-symbols-outlined" style="color:#ef4444;font-size:1.8rem">person_remove</span>
+        </div>
+        <h5 class="mb-1" id="eliminar-modal-title">¿Eliminar instructor?</h5>
+        <p class="mb-0" style="font-size:.82rem;color:var(--cc-muted);">Esta acción no se puede deshacer.</p>
+      </div>
+      <div class="modal-footer justify-content-center border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="btn-confirmar-eliminar" class="btn btn-danger">
+          <span class="material-symbols-outlined" style="font-size:.9rem">delete</span> Eliminar
         </button>
       </div>
-    </form>
-  </div>
-</div>
-
-<!-- ===== Modal Ver Detalle ===== -->
-<div id="modal-detalle" class="modal-overlay hidden">
-  <div class="modal-container bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-md p-8">
-    <div class="flex items-center justify-between mb-6">
-      <h3 class="text-xl font-bold text-slate-800 dark:text-white">Perfil del Instructor</h3>
-      <button id="btn-cerrar-detalle" class="text-slate-400 hover:text-slate-600 transition-colors">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <!-- Avatar + nombre -->
-    <div id="detalle-avatar" class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100"></div>
-    <div id="detalle-contenido" class="space-y-4"></div>
-    <div class="flex justify-end mt-6">
-      <button id="btn-cerrar-detalle2"
-        class="px-5 py-2.5 rounded-lg border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors text-sm">
-        Cerrar
-      </button>
     </div>
   </div>
 </div>
 
-<!-- ===== Modal Confirmar Eliminar ===== -->
-<div id="modal-eliminar" class="modal-overlay hidden">
-  <div class="modal-container bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-sm p-8 text-center">
-    <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-      <span class="material-symbols-outlined text-red-500 text-3xl">person_remove</span>
-    </div>
-    <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">¿Eliminar instructor?</h3>
-    <p class="text-sm text-slate-500 mb-6">Esta acción no se puede deshacer.</p>
-    <div class="flex justify-center gap-3">
-      <button id="btn-cancelar-eliminar"
-        class="px-5 py-2.5 rounded-lg border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 transition-colors text-sm">
-        Cancelar
-      </button>
-      <button id="btn-confirmar-eliminar"
-        class="px-5 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold transition-colors text-sm flex items-center gap-2">
-        <span class="material-symbols-outlined text-sm">delete</span>
-        Eliminar
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== Toast ===== -->
-<div id="toast"
-  class="hidden fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-medium z-50 toast-anim">
-  <span id="toast-icon" class="material-symbols-outlined text-primary">check_circle</span>
-  <span id="toast-msg">Operación exitosa</span>
-</div>
-
-<script src="InstructoresJS.js"></script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="JS/InstructoresJS.js"></script>
 </body>
 </html>
