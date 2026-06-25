@@ -1,374 +1,209 @@
-/* ═══════════════════════════════════════════════════════════════
-   ClassControl — Bloque de catálogos (reemplaza el script inline
-   al final de Pagina_Principal.jsp)
-   ═══════════════════════════════════════════════════════════════ */
-(function () {
-  "use strict";
+/* ===========================
+   ClassControl — Pagina_PrincipalJS.js
+   Bootstrap 5 + Chart.js
+   =========================== */
 
-  /* ── Mapa: data-catalogo → Servlet ── */
-  const SERVLET_MAP = {
-    programa           : "RegistrarPrograma",
-    sede               : "RegistrarSede",
-    jornada            : "RegistrarJornada",
-    modalidad          : "RegistrarModalidad",
-    nivel              : "RegistrarNivel",
-    etapa              : "RegistrarEtapa",
-    estado             : "RegistrarEstado",
-    tipoDocumento      : "RegistrarTipoDocumento",
-    tipoVinculacion    : "RegistrarTipoVinculacion",
-    rol                : "RegistrarRol",
-    trimestre          : "RegistrarTrimestre",
-    competencia        : "RegistrarCompetencia",
-    resultado          : "RegistrarResultado",
-    vinculacionLaboral : "RegistrarVinculacionLaboral",
-    programacion       : "RegistrarProgramacion",
-  };
+"use strict";
 
-  /* ── Mapa: data-catalogo → campos HTML del form ──
-     Los `name` coinciden exactamente con lo que lee cada Servlet.
-  ── */
-  const FIELDS_MAP = {
+/* ══════════════════════════════════════════════════
+   INIT on DOMContentLoaded
+══════════════════════════════════════════════════ */
+document.addEventListener("DOMContentLoaded", () => {
+  initDarkMode();
+  initSidebarToggle();
+  initSearch();
+  initProgressBars();
+  animateCounters();
+  initOcupacionChart();
+});
 
-    /* RegistrarRol → texto(request, "descripcion_Roles") */
-    rol: `
-      <div class="col-12">
-        <label class="form-label">Descripción del rol *</label>
-        <input name="descripcion_Roles" class="form-control"
-               placeholder="ej. Instructor" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+/* ══════════════════════════════════════════════════
+   DARK MODE  (data-bs-theme on <html>)
+══════════════════════════════════════════════════ */
+function initDarkMode() {
+  const toggle = document.getElementById("dark-toggle");
+  const html   = document.documentElement;
 
-    /* RegistrarSede → texto(request, "nombre_sede") */
-    sede: `
-      <div class="col-12">
-        <label class="form-label">Nombre de la sede *</label>
-        <input name="nombre_sede" class="form-control"
-               placeholder="ej. Sede Centro" required />
-        <div class="invalid-feedback">Ingresa el nombre de la sede</div>
-      </div>`,
+  const saved = localStorage.getItem("cc-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(saved ? saved === "dark" : prefersDark);
 
-    /* RegistrarPrograma → entero("codigo_programa") + texto("nombre_programa") */
-    programa: `
-      <div class="col-5">
-        <label class="form-label">Código *</label>
-        <input name="codigo_programa" type="number" class="form-control"
-               placeholder="ej. 228122" required />
-        <div class="invalid-feedback">Ingresa el código</div>
-      </div>
-      <div class="col-7">
-        <label class="form-label">Nombre del programa *</label>
-        <input name="nombre_programa" class="form-control"
-               placeholder="ej. Análisis y Desarrollo de Software" required />
-        <div class="invalid-feedback">Ingresa el nombre</div>
-      </div>`,
+  toggle?.addEventListener("click", () => {
+    const isDark = html.getAttribute("data-bs-theme") !== "dark";
+    applyTheme(isDark);
+    localStorage.setItem("cc-theme", isDark ? "dark" : "light");
+  });
+}
 
-    /* RegistrarJornada → texto("descripcion_Jornada") */
-    jornada: `
-      <div class="col-12">
-        <label class="form-label">Descripción de la jornada *</label>
-        <input name="descripcion_Jornada" class="form-control"
-               placeholder="ej. Diurna, Nocturna, Madrugada" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+function applyTheme(isDark) {
+  document.documentElement.setAttribute("data-bs-theme", isDark ? "dark" : "light");
+  const icon = document.querySelector("#dark-toggle .material-symbols-outlined");
+  if (icon) icon.textContent = isDark ? "light_mode" : "dark_mode";
+}
 
-    /* RegistrarModalidad → texto("descripcion_Modalidad") */
-    modalidad: `
-      <div class="col-12">
-        <label class="form-label">Descripción de la modalidad *</label>
-        <input name="descripcion_Modalidad" class="form-control"
-               placeholder="ej. Presencial, Virtual, A distancia" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+/* ══════════════════════════════════════════════════
+   SIDEBAR TOGGLE (mobile)
+══════════════════════════════════════════════════ */
+function initSidebarToggle() {
+  const toggle  = document.getElementById("sidebar-toggle");
+  const sidebar = document.getElementById("cc-sidebar");
+  toggle?.addEventListener("click", () => sidebar?.classList.toggle("open"));
+}
 
-    /* RegistrarNivel → texto("descripcion_Nivel_Formacion") */
-    nivel: `
-      <div class="col-12">
-        <label class="form-label">Descripción del nivel *</label>
-        <input name="descripcion_Nivel_Formacion" class="form-control"
-               placeholder="ej. Técnico, Tecnólogo, Especialización" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+/* ══════════════════════════════════════════════════
+   LIVE SEARCH (filters DataTable or table rows)
+══════════════════════════════════════════════════ */
+function initSearch() {
+  const input = document.getElementById("search-input");
+  if (!input) return;
 
-    /* RegistrarEtapa → texto("descripcion_Etapa") */
-    etapa: `
-      <div class="col-12">
-        <label class="form-label">Descripción de la etapa *</label>
-        <input name="descripcion_Etapa" class="form-control"
-               placeholder="ej. Lectiva, Productiva" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase().trim();
 
-    /* RegistrarEstado → texto("descripcion_Estado") */
-    estado: `
-      <div class="col-12">
-        <label class="form-label">Descripción del estado *</label>
-        <input name="descripcion_Estado" class="form-control"
-               placeholder="ej. Activo, Inactivo, En proceso" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
+    // If DataTables is present on the page use its API
+    if (window.$ && $.fn && $.fn.dataTable) {
+      $(".dataTable").each(function () {
+        $(this).DataTable().search(q).draw();
+      });
+      return;
+    }
 
-    /* RegistrarTipoDocumento → texto("descripcion_TipoDoc") */
-    tipoDocumento: `
-      <div class="col-12">
-        <label class="form-label">Descripción del tipo de documento *</label>
-        <input name="descripcion_TipoDoc" class="form-control"
-               placeholder="ej. Cédula de ciudadanía, Tarjeta de identidad" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
-
-    /* RegistrarTipoVinculacion → texto("descripcion_vinculacion") */
-    tipoVinculacion: `
-      <div class="col-12">
-        <label class="form-label">Descripción del tipo de vinculación *</label>
-        <input name="descripcion_vinculacion" class="form-control"
-               placeholder="ej. Planta, Contratista, Hora cátedra" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>`,
-
-    /* RegistrarTrimestre → entero("num_trimestre") + texto("descripcion")
-                           + fecha("fecha_inicio") + fecha("fecha_fin") */
-    trimestre: `
-      <div class="col-4">
-        <label class="form-label">Número *</label>
-        <input name="num_trimestre" type="number" min="1" max="6"
-               class="form-control" placeholder="ej. 1" required />
-        <div class="invalid-feedback">Ingresa el número</div>
-      </div>
-      <div class="col-8">
-        <label class="form-label">Descripción *</label>
-        <input name="descripcion" class="form-control"
-               placeholder="ej. Trimestre 1 - 2025" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Fecha inicio *</label>
-        <input name="fecha_inicio" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de inicio</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Fecha fin *</label>
-        <input name="fecha_fin" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de fin</div>
-      </div>`,
-
-    /* RegistrarCompetencia → entero("codigoCompetencias")
-                             + texto("descripcionCompetencias")
-                             + entero("Programacion_Instructores_id_programacion_Instructores") */
-    competencia: `
-      <div class="col-5">
-        <label class="form-label">Código *</label>
-        <input name="codigoCompetencias" type="number" class="form-control"
-               placeholder="ej. 210201501" required />
-        <div class="invalid-feedback">Ingresa el código</div>
-      </div>
-      <div class="col-7">
-        <label class="form-label">Descripción *</label>
-        <input name="descripcionCompetencias" class="form-control"
-               placeholder="ej. Construir soluciones de software" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">ID Programación de instructor *</label>
-        <input name="Programacion_Instructores_id_programacion_Instructores"
-               type="number" class="form-control"
-               placeholder="ID de la programación asociada" required />
-        <div class="invalid-feedback">Ingresa el ID de la programación</div>
-      </div>`,
-
-    /* RegistrarResultado → entero("codigoResultadoAp")
-                           + texto("descripcionResul")
-                           + entero("Competencias_id_competencias") */
-    resultado: `
-      <div class="col-5">
-        <label class="form-label">Código *</label>
-        <input name="codigoResultadoAp" type="number" class="form-control"
-               placeholder="ej. 2102015010101" required />
-        <div class="invalid-feedback">Ingresa el código</div>
-      </div>
-      <div class="col-7">
-        <label class="form-label">Descripción *</label>
-        <input name="descripcionResul" class="form-control"
-               placeholder="ej. Identificar requerimientos del sistema" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">ID Competencia *</label>
-        <input name="Competencias_id_competencias" type="number"
-               class="form-control" placeholder="ID de la competencia asociada" required />
-        <div class="invalid-feedback">Ingresa el ID de la competencia</div>
-      </div>`,
-
-    /* RegistrarVinculacionLaboral → texto("descripcion") + texto("numeroContrato")
-                                    + fecha("fechaInicio") + fecha("fechaFin")
-                                    + entero("Usuarios_id_usuarios")
-       NOTA: el Servlet usa "fechaInicio"/"fechaFin" pero el INSERT usa
-             "fechaInIcio"/"fechafin" — los names aquí deben coincidir con
-             lo que el Servlet lee en request.getParameter().                */
-    vinculacionLaboral: `
-      <div class="col-12">
-        <label class="form-label">Descripción *</label>
-        <input name="descripcion" class="form-control"
-               placeholder="ej. Contrato prestación de servicios" required />
-        <div class="invalid-feedback">Ingresa la descripción</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">Número de contrato *</label>
-        <input name="numeroContrato" class="form-control"
-               placeholder="ej. 2025-0342" required />
-        <div class="invalid-feedback">Ingresa el número de contrato</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Fecha inicio *</label>
-        <input name="fechaInicio" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de inicio</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Fecha fin *</label>
-        <input name="fechaFin" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de fin</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">ID Usuario *</label>
-        <input name="Usuarios_id_usuarios" type="number" class="form-control"
-               placeholder="ID del instructor o usuario" required />
-        <div class="invalid-feedback">Ingresa el ID del usuario</div>
-      </div>`,
-
-    /* RegistrarProgramacion → textoOpcional("Observaciones")
-                              + fecha("fecha_inicial_Prog") + fecha("fecha_fin_Prog")
-                              + texto("diasSemana")
-                              + hora("hora_inicio") + hora("hora_fin")
-                              + entero("Ficha_id_ficha")
-                              + entero("Usuarios_id_usuarios")
-                              + entero("Ambientes_id_ambientes")
-                              + entero("Actividades_id_actividades")
-                              + entero("Trimestre_id_trimestre")
-                              + entero("Estado_id_estado")  */
-    programacion: `
-      <div class="col-6">
-        <label class="form-label">Fecha inicio *</label>
-        <input name="fecha_inicial_Prog" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de inicio</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Fecha fin *</label>
-        <input name="fecha_fin_Prog" type="date" class="form-control" required />
-        <div class="invalid-feedback">Selecciona la fecha de fin</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Hora inicio *</label>
-        <input name="hora_inicio" type="time" class="form-control" required />
-        <div class="invalid-feedback">Ingresa la hora de inicio</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">Hora fin *</label>
-        <input name="hora_fin" type="time" class="form-control" required />
-        <div class="invalid-feedback">Ingresa la hora de fin</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">Días de la semana *</label>
-        <input name="diasSemana" class="form-control"
-               placeholder="ej. LUNES,MIERCOLES,VIERNES" required />
-        <div class="invalid-feedback">Ingresa los días</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Ficha *</label>
-        <input name="Ficha_id_ficha" type="number" class="form-control"
-               placeholder="ID de la ficha" required />
-        <div class="invalid-feedback">Ingresa el ID de la ficha</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Instructor *</label>
-        <input name="Usuarios_id_usuarios" type="number" class="form-control"
-               placeholder="ID del instructor" required />
-        <div class="invalid-feedback">Ingresa el ID del instructor</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Ambiente *</label>
-        <input name="Ambientes_id_ambientes" type="number" class="form-control"
-               placeholder="ID del ambiente" required />
-        <div class="invalid-feedback">Ingresa el ID del ambiente</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Actividad *</label>
-        <input name="Actividades_id_actividades" type="number" class="form-control"
-               placeholder="ID de la actividad" required />
-        <div class="invalid-feedback">Ingresa el ID de la actividad</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Trimestre *</label>
-        <input name="Trimestre_id_trimestre" type="number" class="form-control"
-               placeholder="ID del trimestre" required />
-        <div class="invalid-feedback">Ingresa el ID del trimestre</div>
-      </div>
-      <div class="col-6">
-        <label class="form-label">ID Estado *</label>
-        <input name="Estado_id_estado" type="number" class="form-control"
-               value="1" required />
-        <div class="invalid-feedback">Ingresa el ID del estado</div>
-      </div>
-      <div class="col-12">
-        <label class="form-label">Observaciones</label>
-        <textarea name="Observaciones" class="form-control" rows="2"
-                  placeholder="Observaciones opcionales…"></textarea>
-      </div>`,
-  };
-
-  /* ── Nodos del modal de catálogo ── */
-  const form   = document.getElementById("form-crear-catalogo");
-  const modal  = document.getElementById("modal-crear-catalogo");
-  const title  = document.getElementById("title-crear-catalogo");
-  const fields = document.getElementById("catalogo-fields");
-
-  /* ── Listener en cada botón con data-catalogo ── */
-  document.querySelectorAll("[data-catalogo]").forEach(btn => {
-    btn.addEventListener("click", function () {
-      const tipo    = this.dataset.catalogo;
-      const servlet = SERVLET_MAP[tipo];
-      const html    = FIELDS_MAP[tipo];
-
-      if (!servlet || !html) {
-        console.warn("ClassControl: tipo de catálogo no definido →", tipo);
-        return;
-      }
-
-      /* 1. Actualizar action y título */
-      form.action      = servlet;
-      form.classList.remove("was-validated"); // limpiar validación anterior
-      title.textContent = this.querySelector("strong")?.textContent ?? tipo;
-
-      /* 2. Inyectar los campos */
-      fields.innerHTML = html;
-
-      /* 3. Cerrar el modal padre (selector de tabla) */
-      bootstrap.Modal.getInstance(
-        document.getElementById("modal-crear-registro")
-      )?.hide();
-
-      /* 4. Abrir el modal de catálogo */
-      bootstrap.Modal.getOrCreateInstance(modal).show();
+    // Fallback: plain row filtering
+    document.querySelectorAll("tbody tr[data-searchable]").forEach(row => {
+      row.style.display = !q || row.textContent.toLowerCase().includes(q) ? "" : "none";
     });
   });
+}
 
-  /* ── Listener en botones Ficha / Actividad / Ambiente
-        (usan data-bs-target pero no tienen toggle automático
-         porque están dentro de otro modal) ── */
-  document.querySelectorAll(".cc-create-item[data-bs-target]").forEach(btn => {
-    btn.addEventListener("click", function () {
-      const targetId = this.dataset.bsTarget;
-
-      /* Cerrar el modal padre primero */
-      bootstrap.Modal.getInstance(
-        document.getElementById("modal-crear-registro")
-      )?.hide();
-
-      /* Pequeño delay para que Bootstrap termine el hide antes del show */
-      setTimeout(() => {
-        bootstrap.Modal.getOrCreateInstance(
-          document.querySelector(targetId)
-        ).show();
-      }, 200);
+/* ══════════════════════════════════════════════════
+   PROGRESS BARS (animate on load)
+══════════════════════════════════════════════════ */
+function initProgressBars() {
+  document.querySelectorAll(".progress-bar[data-width]").forEach(bar => {
+    bar.style.width = "0%";
+    requestAnimationFrame(() => {
+      setTimeout(() => { bar.style.width = bar.dataset.width; }, 120);
     });
   });
+}
 
-})();
+/* ══════════════════════════════════════════════════
+   COUNTER ANIMATION
+══════════════════════════════════════════════════ */
+function animateCounters() {
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const target   = parseInt(el.dataset.count, 10);
+    const duration = 800;
+    const step     = target / (duration / 16);
+    let current    = 0;
+    const timer    = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.round(current).toString().padStart(2, "0");
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  });
+}
+
+/* ══════════════════════════════════════════════════
+   CHART.JS — Ocupación de Ambientes
+══════════════════════════════════════════════════ */
+const chartDatasets = {
+  "Esta semana": [60, 85, 70, 95, 40, 20],
+  "Hoy":         [0,  0,  0,  0,  72,  0],
+};
+
+function initOcupacionChart() {
+  const canvas = document.getElementById("ocupacionChart");
+  if (!canvas || !window.Chart) return;
+
+  const primaryColor = "#38a800";
+
+  const chart = new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: ["LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
+      datasets: [{
+        label: "Ocupación (%)",
+        data: chartDatasets["Esta semana"],
+        backgroundColor: "rgba(56,168,0,.22)",
+        hoverBackgroundColor: primaryColor,
+        borderRadius: 4,
+        borderSkipped: false,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.parsed.y}%`,
+          },
+        },
+      },
+      scales: {
+        y: {
+          min: 0, max: 100,
+          ticks: {
+            callback: v => v + "%",
+            font: { family: "'DM Sans', sans-serif", size: 11 },
+            color: "#64748b",
+          },
+          grid: { color: "rgba(0,0,0,.05)" },
+        },
+        x: {
+          ticks: {
+            font: { family: "'DM Sans', sans-serif", size: 11, weight: "700" },
+            color: "#64748b",
+          },
+          grid: { display: false },
+        },
+      },
+    },
+  });
+
+  // Week selector
+  document.getElementById("chart-select")?.addEventListener("change", e => {
+    const vals = chartDatasets[e.target.value] ?? chartDatasets["Esta semana"];
+    chart.data.datasets[0].data = vals;
+    chart.update();
+  });
+}
+
+/* ══════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════ */
+function showToast(message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = `cc-toast ${type}`;
+  toast.innerHTML = `
+    <span class="material-symbols-outlined" style="font-size:1.1rem">
+      ${type === "success" ? "check_circle" : "error"}
+    </span>
+    <span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("hide");
+    toast.addEventListener("animationend", () => toast.remove(), { once: true });
+  }, 3500);
+}
+
+/* ══════════════════════════════════════════════════
+   BOOTSTRAP FORM VALIDATION (modals)
+   — triggers on submit of any .needs-validation form
+══════════════════════════════════════════════════ */
+document.querySelectorAll("form[novalidate]").forEach(form => {
+  form.addEventListener("submit", e => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      e.stopPropagation();
+      showToast("Completa los campos requeridos", "error");
+    }
+    form.classList.add("was-validated");
+  });
+});

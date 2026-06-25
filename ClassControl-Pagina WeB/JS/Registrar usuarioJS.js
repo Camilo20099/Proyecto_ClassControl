@@ -244,16 +244,23 @@ function setSubmitLoading(loading) {
    ============================================================ */
 
 function handleSubmit(e) {
+  e.preventDefault();
+
   if (!validateAll()) {
-    e.preventDefault(); // Solo cancelar el envío si hay errores de validación
     const first = document.querySelector('.is-invalid');
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
     showToast('Revisa los campos marcados en rojo', 'error');
     return;
   }
 
-  // Validación OK → mostrar spinner y dejar que el form haga POST al servlet
   setSubmitLoading(true);
+
+  // Simulación de guardado (reemplazar con fetch al API)
+  setTimeout(() => {
+    setSubmitLoading(false);
+    showToast('✓ Usuario creado exitosamente', 'success');
+    setTimeout(() => { window.location.href = 'Inicio_de_sesion.html'; }, 1800);
+  }, 1600);
 }
 
 /* ============================================================
@@ -267,7 +274,10 @@ function handleCancel() {
   });
 
   if (!anyFilled || confirm('¿Descartar los datos ingresados?')) {
-    window.location.href = 'Inicio_de_sesion.jsp';
+    document.getElementById('registerForm')?.reset();
+    Object.keys(VALIDATORS).forEach(clearField);
+    document.getElementById('pwStrength')?.classList.add('d-none');
+    updateSteps();
   }
 }
 
