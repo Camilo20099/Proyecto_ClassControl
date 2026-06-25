@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: classcontrol
 -- ------------------------------------------------------
--- Server version	8.0.43
+-- Server version	5.5.5-10.4.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -94,6 +94,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `nivel_formacion` WRITE;
 /*!40000 ALTER TABLE `nivel_formacion` DISABLE KEYS */;
+INSERT INTO `nivel_formacion` VALUES (1,'Tecnologo');
 /*!40000 ALTER TABLE `nivel_formacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +189,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (6,'Juan Camilo','Hurtado Sanchez','1120956066','2007-10-14','Camilohurtado1120956066@gmail.com','3001966387','','camilohurtado','tecnico','Recursos Humanos','Camilo2007--','2026-06-11',1,3,1,1);
+INSERT INTO `usuarios` VALUES (1,'Juan Camilo ','Hurtado Sánchez','1120956066','2007-10-14','Camilohurtado@gmail.com','3001966387','Carrera 7 N. 28-66','camilohurtado','tecnico','Recursos Humanos','Camilo2007--','2026-06-13',1,'2026-09-11',3,1,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-11 10:24:55
+-- Dump completed on 2026-06-14 13:43:02
