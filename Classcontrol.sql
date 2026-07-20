@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Tipo_Documento` (
   `id_tipo_Documento` INT NOT NULL AUTO_INCREMENT,
   `descripcion_Tipo_Doc` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_tipo_Documento`),
-  UNIQUE INDEX `descripcion_TipoDoc_UNIQUE` (`descripcion_Tipo_Doc`  )  );
+  UNIQUE INDEX `descripcion_TipoDoc_UNIQUE` (`descripcion_Tipo_Doc` ) );
 
 
 -- -----------------------------------------------------
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Roles` (
   `id_roles` INT NOT NULL AUTO_INCREMENT,
   `descripcion_Roles` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_roles`),
-  UNIQUE INDEX `descripcion_Roles_UNIQUE` (`descripcion_Roles`  )  );
+  UNIQUE INDEX `descripcion_Roles_UNIQUE` (`descripcion_Roles` ) );
 
 
 -- -----------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Tipo_vinculacion` (
   `id_tipo_vinculacion` INT NOT NULL AUTO_INCREMENT,
   `descripcion_vinculacion` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_tipo_vinculacion`),
-  UNIQUE INDEX `descripcion_vinculacion_UNIQUE` (`descripcion_vinculacion`  )  );
+  UNIQUE INDEX `descripcion_vinculacion_UNIQUE` (`descripcion_vinculacion` ) );
 
 
 -- -----------------------------------------------------
@@ -67,12 +67,12 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Usuarios` (
   `Tipo_Documento_id_tipo_Documento` INT NOT NULL,
   `Tipo_vinculacion_id_tipo_vinculacion` INT NOT NULL,
   PRIMARY KEY (`id_usuarios`),
-  INDEX `fk_Usuarios_Roles_idx` (`Roles_id_roles`  )  ,
-  INDEX `fk_Usuarios_Tipo_Documento1_idx` (`Tipo_Documento_id_tipo_Documento`  )  ,
-  INDEX `fk_Usuarios_Tipo_vinculacion1_idx` (`Tipo_vinculacion_id_tipo_vinculacion`  )  ,
-  UNIQUE INDEX `identificacion_UNIQUE` (`identificacion`  )  ,
-  UNIQUE INDEX `correo_UNIQUE` (`correo`  )  ,
-  UNIQUE INDEX `username_UNIQUE` (`username`  )  ,
+  INDEX `fk_Usuarios_Roles_idx` (`Roles_id_roles` ) ,
+  INDEX `fk_Usuarios_Tipo_Documento1_idx` (`Tipo_Documento_id_tipo_Documento` ) ,
+  INDEX `fk_Usuarios_Tipo_vinculacion1_idx` (`Tipo_vinculacion_id_tipo_vinculacion` ) ,
+  UNIQUE INDEX `identificacion_UNIQUE` (`identificacion` ) ,
+  UNIQUE INDEX `correo_UNIQUE` (`correo` ) ,
+  UNIQUE INDEX `username_UNIQUE` (`username` ) ,
   CONSTRAINT `fk_Usuarios_Roles`
     FOREIGN KEY (`Roles_id_roles`)
     REFERENCES `ClassControl`.`Roles` (`id_roles`)
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Programas` (
   `codigo_programa` INT NOT NULL,
   `nombre_programa` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idProgramas`),
-  UNIQUE INDEX `codigo_programa_UNIQUE` (`codigo_programa`  )  );
+  UNIQUE INDEX `codigo_programa_UNIQUE` (`codigo_programa` ) );
 
 
 -- -----------------------------------------------------
@@ -135,14 +135,14 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Sede` (
   `id_sede` INT NOT NULL AUTO_INCREMENT,
   `nombre_sede` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_sede`),
-  UNIQUE INDEX `nombre_sede_UNIQUE` (`nombre_sede`  )  );
+  UNIQUE INDEX `nombre_sede_UNIQUE` (`nombre_sede` ) );
 
 
 -- -----------------------------------------------------
 -- Table `ClassControl`.`Tipo_Estado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ClassControl`.`Tipo_Estado` (
-  `id_tipo_estado` INT NOT NULL,
+  `id_tipo_estado` INT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_tipo_estado`))
 ENGINE = InnoDB;
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Estado` (
   `descripcion_Estado` VARCHAR(45) NOT NULL,
   `Tipo_Estado_id_tipo_estado` INT NOT NULL,
   PRIMARY KEY (`id_estado`),
-  INDEX `fk_Estado_Tipo_Estado1_idx` (`Tipo_Estado_id_tipo_estado`  )  ,
+  INDEX `fk_Estado_Tipo_Estado1_idx` (`Tipo_Estado_id_tipo_estado` ) ,
   CONSTRAINT `fk_Estado_Tipo_Estado1`
     FOREIGN KEY (`Tipo_Estado_id_tipo_estado`)
     REFERENCES `ClassControl`.`Tipo_Estado` (`id_tipo_estado`)
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Etapa` (
   `id_etapa` INT NOT NULL AUTO_INCREMENT,
   `descripcion_Etapa` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_etapa`),
-  UNIQUE INDEX `descripcion_Etapa_UNIQUE` (`descripcion_Etapa`  )  )
+  UNIQUE INDEX `descripcion_Etapa_UNIQUE` (`descripcion_Etapa` ) )
 ENGINE = InnoDB;
 
 
@@ -192,13 +192,13 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Ficha` (
   `Estado_id_estado` INT NOT NULL,
   `Etapa_id_etapa` INT NOT NULL,
   PRIMARY KEY (`id_ficha`),
-  INDEX `fk_Ficha_Programas1_idx` (`Programas_idProgramas`  )  ,
-  INDEX `fk_Ficha_Jornada1_idx` (`Jornada_id_jornada`  )  ,
-  INDEX `fk_Ficha_Modalidad1_idx` (`Modalidad_id_modalidad`  )  ,
-  INDEX `fk_Ficha_Nivel_formacion1_idx` (`Nivel_formacion_id_nivel_formacion`  )  ,
-  INDEX `fk_Ficha_Sede1_idx` (`Sede_id_sede`  )  ,
-  INDEX `fk_Ficha_Estado1_idx` (`Estado_id_estado`  )  ,
-  INDEX `fk_Ficha_Etapa1_idx` (`Etapa_id_etapa`  )  ,
+  INDEX `fk_Ficha_Programas1_idx` (`Programas_idProgramas` ) ,
+  INDEX `fk_Ficha_Jornada1_idx` (`Jornada_id_jornada` ) ,
+  INDEX `fk_Ficha_Modalidad1_idx` (`Modalidad_id_modalidad` ) ,
+  INDEX `fk_Ficha_Nivel_formacion1_idx` (`Nivel_formacion_id_nivel_formacion` ) ,
+  INDEX `fk_Ficha_Sede1_idx` (`Sede_id_sede` ) ,
+  INDEX `fk_Ficha_Estado1_idx` (`Estado_id_estado` ) ,
+  INDEX `fk_Ficha_Etapa1_idx` (`Etapa_id_etapa` ) ,
   CONSTRAINT `fk_Ficha_Programas1`
     FOREIGN KEY (`Programas_idProgramas`)
     REFERENCES `ClassControl`.`Programas` (`idProgramas`)
@@ -245,8 +245,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Ambientes` (
   `capacidad` INT NOT NULL,
   `Sede_id_sede` INT NOT NULL,
   PRIMARY KEY (`id_ambientes`),
-  INDEX `fk_Ambientes_Sede1_idx` (`Sede_id_sede`  )  ,
-  UNIQUE INDEX `descripcion_Ambiente_UNIQUE` (`descripcion_Ambiente`  )  ,
+  INDEX `fk_Ambientes_Sede1_idx` (`Sede_id_sede` ) ,
+  UNIQUE INDEX `descripcion_Ambiente_UNIQUE` (`descripcion_Ambiente` ) ,
   CONSTRAINT `fk_Ambientes_Sede1`
     FOREIGN KEY (`Sede_id_sede`)
     REFERENCES `ClassControl`.`Sede` (`id_sede`)
@@ -284,18 +284,18 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Programacion_Instructores` (
   `Trimestre_id_trimestre` INT NOT NULL,
   `Estado_id_estado` INT NOT NULL,
   PRIMARY KEY (`id_programacion_Instructores`),
-  INDEX `fk_Programacion_Instructores_Ficha1_idx` (`Ficha_id_ficha`  )  ,
-  INDEX `fk_Programacion_Instructores_Usuarios1_idx` (`Usuarios_id_usuarios`  )  ,
-  INDEX `fk_Programacion_Instructores_Ambientes1_idx` (`Ambientes_id_ambientes`  )  ,
-  INDEX `fk_Programacion_Instructores_Trimestre1_idx` (`Trimestre_id_trimestre`  )  ,
-  INDEX `fk_Programacion_Instructores_Estado1_idx` (`Estado_id_estado`  )  ,
-  UNIQUE INDEX `fecha_inicial_Prog_UNIQUE` (`fecha_inicial_Prog`  )  ,
-  UNIQUE INDEX `fecha_fin_Prog_UNIQUE` (`fecha_fin_Prog`  )  ,
-  UNIQUE INDEX `diasSemana_UNIQUE` (`dias_Semana`  )  ,
-  UNIQUE INDEX `Ambientes_id_ambientes_UNIQUE` (`Ambientes_id_ambientes`  )  ,
-  UNIQUE INDEX `id_programacion_Instructores_UNIQUE` (`id_programacion_Instructores`  )  ,
-  UNIQUE INDEX `hora_inicio_UNIQUE` (`hora_inicio`  )  ,
-  UNIQUE INDEX `hora_fin_UNIQUE` (`hora_fin`  )  ,
+  INDEX `fk_Programacion_Instructores_Ficha1_idx` (`Ficha_id_ficha` ) ,
+  INDEX `fk_Programacion_Instructores_Usuarios1_idx` (`Usuarios_id_usuarios` ) ,
+  INDEX `fk_Programacion_Instructores_Ambientes1_idx` (`Ambientes_id_ambientes` ) ,
+  INDEX `fk_Programacion_Instructores_Trimestre1_idx` (`Trimestre_id_trimestre` ) ,
+  INDEX `fk_Programacion_Instructores_Estado1_idx` (`Estado_id_estado` ) ,
+  UNIQUE INDEX `fecha_inicial_Prog_UNIQUE` (`fecha_inicial_Prog` ) ,
+  UNIQUE INDEX `fecha_fin_Prog_UNIQUE` (`fecha_fin_Prog` ) ,
+  UNIQUE INDEX `diasSemana_UNIQUE` (`dias_Semana` ) ,
+  UNIQUE INDEX `Ambientes_id_ambientes_UNIQUE` (`Ambientes_id_ambientes` ) ,
+  UNIQUE INDEX `id_programacion_Instructores_UNIQUE` (`id_programacion_Instructores` ) ,
+  UNIQUE INDEX `hora_inicio_UNIQUE` (`hora_inicio` ) ,
+  UNIQUE INDEX `hora_fin_UNIQUE` (`hora_fin` ) ,
   CONSTRAINT `fk_Programacion_Instructores_Ficha1`
     FOREIGN KEY (`Ficha_id_ficha`)
     REFERENCES `ClassControl`.`Ficha` (`id_ficha`)
@@ -333,8 +333,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Competencias` (
   `descripcion_Competencias` VARCHAR(45) NOT NULL,
   `Programacion_Instructores_id_programacion_Instructores` INT NOT NULL,
   PRIMARY KEY (`id_competencias`),
-  UNIQUE INDEX `codigoCompetencias_UNIQUE` (`codigo_Competencias`  )  ,
-  INDEX `fk_Competencias_Programacion_Instructores1_idx` (`Programacion_Instructores_id_programacion_Instructores`  )  ,
+  UNIQUE INDEX `codigoCompetencias_UNIQUE` (`codigo_Competencias` ) ,
+  INDEX `fk_Competencias_Programacion_Instructores1_idx` (`Programacion_Instructores_id_programacion_Instructores` ) ,
   CONSTRAINT `fk_Competencias_Programacion_Instructores1`
     FOREIGN KEY (`Programacion_Instructores_id_programacion_Instructores`)
     REFERENCES `ClassControl`.`Programacion_Instructores` (`id_programacion_Instructores`)
@@ -352,8 +352,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Resultado_aprendizaje` (
   `descripcion_Resul` VARCHAR(45) NOT NULL,
   `Competencias_id_competencias` INT NOT NULL,
   PRIMARY KEY (`id_resultado_aprendizaje`),
-  UNIQUE INDEX `codigoResultadoAp_UNIQUE` (`codigo_ResultadoAp`  )  ,
-  INDEX `fk_Resultado_aprendizaje_Competencias1_idx` (`Competencias_id_competencias`  )  ,
+  UNIQUE INDEX `codigoResultadoAp_UNIQUE` (`codigo_ResultadoAp` ) ,
+  INDEX `fk_Resultado_aprendizaje_Competencias1_idx` (`Competencias_id_competencias` ) ,
   CONSTRAINT `fk_Resultado_aprendizaje_Competencias1`
     FOREIGN KEY (`Competencias_id_competencias`)
     REFERENCES `ClassControl`.`Competencias` (`id_competencias`)
@@ -371,8 +371,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Actividades` (
   `descripcion` VARCHAR(200) NOT NULL,
   `Resultado_aprendizaje_id_resultado_aprendizaje` INT NOT NULL,
   PRIMARY KEY (`id_actividades`),
-  UNIQUE INDEX `codigoActividad_UNIQUE` (`codigo_Actividad`  )  ,
-  INDEX `fk_Actividades_Resultado_aprendizaje1_idx` (`Resultado_aprendizaje_id_resultado_aprendizaje`  )  ,
+  UNIQUE INDEX `codigoActividad_UNIQUE` (`codigo_Actividad` ) ,
+  INDEX `fk_Actividades_Resultado_aprendizaje1_idx` (`Resultado_aprendizaje_id_resultado_aprendizaje` ) ,
   CONSTRAINT `fk_Actividades_Resultado_aprendizaje1`
     FOREIGN KEY (`Resultado_aprendizaje_id_resultado_aprendizaje`)
     REFERENCES `ClassControl`.`Resultado_aprendizaje` (`id_resultado_aprendizaje`)
@@ -391,8 +391,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Vinculacion_Laboral` (
   `fecha_Fin` DATE NOT NULL,
   `Usuarios_id_usuarios` INT NOT NULL,
   PRIMARY KEY (`id_vinculacion_Laboral`),
-  UNIQUE INDEX `numeroContrato_UNIQUE` (`numero_Contrato`  )  ,
-  INDEX `fk_VinculacionLaboral_Usuarios1_idx` (`Usuarios_id_usuarios`  )  ,
+  UNIQUE INDEX `numeroContrato_UNIQUE` (`numero_Contrato` ) ,
+  INDEX `fk_VinculacionLaboral_Usuarios1_idx` (`Usuarios_id_usuarios` ) ,
   CONSTRAINT `fk_VinculacionLaboral_Usuarios1`
     FOREIGN KEY (`Usuarios_id_usuarios`)
     REFERENCES `ClassControl`.`Usuarios` (`id_usuarios`)
@@ -406,7 +406,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ClassControl`.`Permisos` (
   `id_permisos` INT NOT NULL,
-  `descripcion_permiso` VARCHAR(45) NOT NULL,
+  `descripcion_permisos` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_permisos`))
 ENGINE = InnoDB;
 
@@ -418,8 +418,8 @@ CREATE TABLE IF NOT EXISTS `ClassControl`.`Roles_has_Permisos` (
   `Roles_id_roles` INT NOT NULL,
   `Permisos_id_permisos` INT NOT NULL,
   PRIMARY KEY (`Roles_id_roles`, `Permisos_id_permisos`),
-  INDEX `fk_Roles_has_Permisos_Permisos1_idx` (`Permisos_id_permisos`  )  ,
-  INDEX `fk_Roles_has_Permisos_Roles1_idx` (`Roles_id_roles`  )  ,
+  INDEX `fk_Roles_has_Permisos_Permisos1_idx` (`Permisos_id_permisos` ) ,
+  INDEX `fk_Roles_has_Permisos_Roles1_idx` (`Roles_id_roles` ) ,
   CONSTRAINT `fk_Roles_has_Permisos_Roles1`
     FOREIGN KEY (`Roles_id_roles`)
     REFERENCES `ClassControl`.`Roles` (`id_roles`)
