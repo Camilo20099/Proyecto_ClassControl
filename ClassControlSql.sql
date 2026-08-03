@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: classcontrol
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.32-MariaDB
+-- Server version	8.0.46
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `ambientes` WRITE;
 /*!40000 ALTER TABLE `ambientes` DISABLE KEYS */;
-INSERT INTO `ambientes` VALUES (1,'Taller de Metalmecánica',25,1),(2,'Taller de Soldadura',20,1),(3,'Laboratorio de Metrología',18,1),(4,'Ambiente de Costura ADMD',30,2),(5,'Taller de Patronaje y Diseño ADMD',28,2),(6,'Laboratorio de Textiles ADMD',22,2),(7,'Laboratorio de Software ADSO - 101',25,3),(8,'Laboratorio de Software ADSO - 102',25,3),(9,'Sala de Producción Audiovisual',15,3);
 /*!40000 ALTER TABLE `ambientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,6 +75,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `jornada` WRITE;
 /*!40000 ALTER TABLE `jornada` DISABLE KEYS */;
+INSERT INTO `jornada` VALUES (1,'Diurna'),(2,'Tarde'),(3,'Noche');
 /*!40000 ALTER TABLE `jornada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +85,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `modalidad` WRITE;
 /*!40000 ALTER TABLE `modalidad` DISABLE KEYS */;
+INSERT INTO `modalidad` VALUES (1,'Presencial'),(2,'Virtual'),(3,'Mixto');
 /*!40000 ALTER TABLE `modalidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,6 +97,15 @@ LOCK TABLES `nivel_formacion` WRITE;
 /*!40000 ALTER TABLE `nivel_formacion` DISABLE KEYS */;
 INSERT INTO `nivel_formacion` VALUES (1,'Tecnologo');
 /*!40000 ALTER TABLE `nivel_formacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `permisos`
+--
+
+LOCK TABLES `permisos` WRITE;
+/*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -131,8 +141,17 @@ UNLOCK TABLES;
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (3,'Administrador'),(2,'Aprendiz'),(1,'Instructor');
+INSERT INTO `roles` VALUES (3,'Administrador'),(2,'Aprendiz'),(4,'Coordinador'),(1,'Instructor');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `roles_has_permisos`
+--
+
+LOCK TABLES `roles_has_permisos` WRITE;
+/*!40000 ALTER TABLE `roles_has_permisos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roles_has_permisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -189,17 +208,17 @@ UNLOCK TABLES;
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Juan Camilo ','Hurtado Sánchez','1120956066','2007-10-14','Camilohurtado@gmail.com','3001966387','Carrera 7 N. 28-66','camilohurtado','tecnico','Recursos Humanos','Camilo2007--','2026-06-13',1,'2026-09-11',3,1,1);
+INSERT INTO `usuarios` VALUES (2,'Juan Camilo','Hurtado Sánchez','1120956066','2007-10-14','camilohurtado1120956066@gmail.com','3001966387','Cra 8 F E, Bogotá','camilohurtado','bachillerato','Recursos Humanos','$2a$12$szqhHvNipQt0S42ybebaXeNIZEs/y0n4rYkVd4uefe5620ooOODSS','2026-07-21',1,'2026-10-19',1,1,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `vinculacionlaboral`
+-- Dumping data for table `vinculacion_laboral`
 --
 
-LOCK TABLES `vinculacionlaboral` WRITE;
-/*!40000 ALTER TABLE `vinculacionlaboral` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vinculacionlaboral` ENABLE KEYS */;
+LOCK TABLES `vinculacion_laboral` WRITE;
+/*!40000 ALTER TABLE `vinculacion_laboral` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vinculacion_laboral` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -211,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-14 13:43:02
+-- Dump completed on 2026-07-23  9:01:46
